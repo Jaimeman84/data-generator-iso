@@ -2,7 +2,12 @@ import json
 import string
 import random
 
-def generate_invalid_data(format_type, length, data_type, max_length=None):
+def is_datetime_field(field_name, length):
+    """Check if a field is a date/time field based on its name and length"""
+    datetime_keywords = ['Date', 'Time', 'MMDDhhmmss', 'MMDD', 'YYMM', 'hhmmss']
+    return any(keyword in field_name for keyword in datetime_keywords) and length in [4, 6, 8, 10, 12]
+
+def generate_invalid_data(format_type, length, data_type, max_length=None, field_name=""):
     test_cases = {}
     
     # Invalid type test cases
@@ -17,6 +22,23 @@ def generate_invalid_data(format_type, length, data_type, max_length=None):
             "value": ''.join(random.choices(string.punctuation, k=length or max_length)),
             "description": "Contains special characters"
         }
+        # Add invalid date/time test cases only for date/time fields
+        if is_datetime_field(field_name, length):
+            if "Date" in field_name and length == 4:  # MMDD format
+                test_cases["invalid_date"] = {
+                    "value": "1332",  # Invalid month 13
+                    "description": "Invalid date value (invalid month)"
+                }
+            elif "Time" in field_name and length == 6:  # hhmmss format
+                test_cases["invalid_time"] = {
+                    "value": "251060",  # Invalid minutes
+                    "description": "Invalid time value (invalid minutes)"
+                }
+            elif length == 10:  # MMDDhhmmss format
+                test_cases["invalid_datetime"] = {
+                    "value": "1335251060",  # Invalid month and minutes
+                    "description": "Invalid date and time value"
+                }
     elif data_type == "alphanumeric":
         # For alphanumeric fields, generate special characters
         test_cases["invalid_special_chars"] = {
@@ -29,11 +51,19 @@ def generate_invalid_data(format_type, length, data_type, max_length=None):
             "value": ''.join(random.choices(string.ascii_letters + string.digits, k=length or max_length)),
             "description": "Contains non-binary characters"
         }
+        test_cases["invalid_binary_chars"] = {
+            "value": ''.join(random.choices("23456789", k=length or max_length)),
+            "description": "Contains non-binary digits (not 0 or 1)"
+        }
     elif data_type == "hex":
         # For hex fields, generate non-hex characters
         test_cases["invalid_type"] = {
             "value": ''.join(random.choices(string.ascii_letters[6:] + string.punctuation, k=length or max_length)),
             "description": "Contains non-hexadecimal characters"
+        }
+        test_cases["invalid_hex_chars"] = {
+            "value": ''.join(random.choices("GHIJKLMNOPQRSTUVWXYZ", k=length or max_length)),
+            "description": "Contains invalid hexadecimal letters"
         }
 
     # Length-based test cases
@@ -65,6 +95,11 @@ def generate_invalid_data(format_type, length, data_type, max_length=None):
                 "value": invalid_data,
                 "description": "Missing length indicator"
             }
+            # Test zero length
+            test_cases["zero_length"] = {
+                "value": "00" if format_type == "llvar" else "000",
+                "description": "Zero length indicator"
+            }
 
     # Format-specific test cases
     if format_type == "bitmap":
@@ -87,8 +122,10 @@ def extend_iso_config(config_data):
         
         format_type = element.get("format")
         length = element.get("length")
-        max_length = element.get("maxLength")
+        max_length = element.get("max_length")  # Updated to match config
         data_type = element.get("type")
+        sample_data = element.get("SampleData")  # Updated to match config
+        field_name = element.get("name", "")
         
         if format_type and data_type:
             # Generate invalid test cases
@@ -96,7 +133,8 @@ def extend_iso_config(config_data):
                 format_type,
                 length,
                 data_type,
-                max_length
+                max_length,
+                field_name
             )
             
             # Add test cases to extended element
@@ -109,6 +147,9 @@ def extend_iso_config(config_data):
                     "allowedChars": "0-9" if data_type == "numeric" else "a-zA-Z0-9" if data_type == "alphanumeric" else "0-1" if data_type == "binary" else "0-9A-F",
                     "description": f"Must be exactly {length} characters long with {data_type} characters"
                 }
+                if is_datetime_field(field_name, length):
+                    extended_element["validationRules"]["isDateTime"] = True
+                    extended_element["validationRules"]["format"] = "MMDD" if length == 4 else "hhmmss" if length == 6 else "MMDDhhmmss" if length == 10 else "YYMM"
             elif format_type in ["llvar", "lllvar"]:
                 extended_element["validationRules"] = {
                     "maxLength": max_length,
@@ -120,7 +161,11 @@ def extend_iso_config(config_data):
             # Add example valid data based on format and type
             if format_type == "fixed":
                 if data_type == "numeric":
-                    extended_element["validExample"] = ''.join(random.choices(string.digits, k=length))
+                    # For date/time fields, use sample data
+                    if is_datetime_field(field_name, length):
+                        extended_element["validExample"] = sample_data  # Use sample data for date/time fields
+                    else:
+                        extended_element["validExample"] = ''.join(random.choices(string.digits, k=length))
                 elif data_type == "alphanumeric":
                     extended_element["validExample"] = ''.join(random.choices(string.ascii_letters + string.digits, k=length))
                 elif data_type == "binary":
