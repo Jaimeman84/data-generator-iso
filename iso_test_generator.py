@@ -78,27 +78,15 @@ def generate_invalid_data(format_type, length, data_type, max_length=None, field
         }
     elif format_type in ["llvar", "lllvar"]:
         if max_length:
-            # Test exceeding max length
+            # Test exceeding max length for raw data
             test_cases["invalid_length_exceed_max"] = {
                 "value": ''.join(random.choices(string.digits if data_type == "numeric" else string.ascii_letters + string.digits, k=max_length+1)),
-                "description": f"Exceeds maximum length of {max_length} characters"
+                "description": f"Raw data exceeds maximum length of {max_length} characters"
             }
-            # Test invalid length indicator
-            prefix_length = 2 if format_type == "llvar" else 3
-            invalid_data = ''.join(random.choices(string.digits if data_type == "numeric" else string.ascii_letters + string.digits, k=max_length))
-            test_cases["invalid_length_indicator"] = {
-                "value": str(max_length+1).zfill(prefix_length) + invalid_data,
-                "description": "Length indicator doesn't match actual data length"
-            }
-            # Test missing length indicator
-            test_cases["missing_length_indicator"] = {
-                "value": invalid_data,
-                "description": "Missing length indicator"
-            }
-            # Test zero length
-            test_cases["zero_length"] = {
-                "value": "00" if format_type == "llvar" else "000",
-                "description": "Zero length indicator"
+            # Test empty data
+            test_cases["invalid_empty"] = {
+                "value": "",
+                "description": "Empty raw data"
             }
 
     # Format-specific test cases
@@ -173,13 +161,24 @@ def extend_iso_config(config_data):
                 elif data_type == "hex":
                     extended_element["validExample"] = ''.join(random.choices(string.hexdigits[:16], k=length))
             elif format_type in ["llvar", "lllvar"]:
+                # Generate raw data first
                 data_length = random.randint(1, max_length)
                 if data_type == "numeric":
-                    data = ''.join(random.choices(string.digits, k=data_length))
+                    raw_data = ''.join(random.choices(string.digits, k=data_length))
                 else:
-                    data = ''.join(random.choices(string.ascii_letters + string.digits, k=data_length))
+                    raw_data = ''.join(random.choices(string.ascii_letters + string.digits, k=data_length))
+                
+                # Store both raw and formatted data
                 prefix_length = 2 if format_type == "llvar" else 3
-                extended_element["validExample"] = str(data_length).zfill(prefix_length) + data
+                extended_element["validExampleRaw"] = raw_data
+                extended_element["validExample"] = str(len(raw_data)).zfill(prefix_length) + raw_data
+                
+                # Add explanation of the formatting
+                extended_element["validationRules"]["formatExample"] = {
+                    "raw": raw_data,
+                    "formatted": extended_element["validExample"],
+                    "explanation": f"Length indicator '{str(len(raw_data)).zfill(prefix_length)}' + raw data '{raw_data}'"
+                }
         
         extended_config[key] = extended_element
     

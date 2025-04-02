@@ -5,7 +5,7 @@ This project provides a tool for generating comprehensive test data for ISO8583 
 ## Overview
 
 The test data generator takes an ISO8583 configuration file (`iso_config.json`) and generates an extended configuration (`iso_config_extended.json`) that includes:
-- Valid test data examples
+- Valid test data examples (both raw and formatted for variable length fields)
 - Invalid test cases
 - Validation rules
 - Format specifications
@@ -29,8 +29,8 @@ For each data element, the generator creates test cases based on:
 
 2. **Length Validation Tests**
    - Too short/long for fixed-length fields
-   - Exceeding maximum length for variable-length fields
-   - Missing or invalid length indicators
+   - Raw data exceeding maximum length for variable-length fields
+   - Empty data validation
 
 3. **Format-Specific Tests**
    - Invalid date/time values
@@ -41,6 +41,40 @@ For each data element, the generator creates test cases based on:
    - Date format validation (MMDD, YYMM, etc.)
    - Time format validation (hhmmss)
    - Combined date-time validation (MMDDhhmmss)
+
+## Variable Length Field Handling
+
+The generator provides special handling for LLVAR and LLLVAR fields:
+
+1. **Raw Data**
+   - Stored in `validExampleRaw`
+   - Used for data validation before formatting
+   - No length indicators included
+
+2. **Formatted Data**
+   - Stored in `validExample`
+   - Includes length indicator (LL or LLL) + raw data
+   - Used for final ISO8583 message validation
+
+3. **Format Examples**
+   - Shows relationship between raw and formatted data
+   - Explains length indicator calculation
+   - Helps understand the formatting process
+
+Example:
+```json
+{
+    "validExampleRaw": "12345",
+    "validExample": "0512345",
+    "validationRules": {
+        "formatExample": {
+            "raw": "12345",
+            "formatted": "0512345",
+            "explanation": "Length indicator '05' + raw data '12345'"
+        }
+    }
+}
+```
 
 ## Usage
 
@@ -84,11 +118,14 @@ The generated output (`iso_config_extended.json`) includes:
             }
         },
         "validationRules": {
-            "exactLength": 123,
+            "exactLength": 123,        // for fixed length
+            "maxLength": 123,          // for variable length
+            "lengthIndicatorSize": 2,  // for llvar
             "allowedChars": "pattern",
             "description": "validation description"
         },
-        "validExample": "valid test data"
+        "validExample": "formatted test data",
+        "validExampleRaw": "raw test data"  // for variable length fields
     }
 }
 ```
@@ -101,9 +138,14 @@ The generated output (`iso_config_extended.json`) includes:
 - Format-specific validation
 
 ### 2. Variable Length Fields (LLVAR/LLLVAR)
-- Length indicator validation
-- Maximum length validation
-- Content type validation
+- Raw data validation
+  - Maximum length check
+  - Empty data check
+  - Character type validation
+- Formatting examples
+  - Raw data
+  - Formatted data with length indicator
+  - Format explanation
 
 ### 3. Special Format Fields
 - Date/Time fields (MMDD, YYMM, hhmmss)
@@ -117,22 +159,30 @@ The generated output (`iso_config_extended.json`) includes:
 
 ## Examples
 
+### Variable Length Field Test Cases
+```json
+{
+    "invalid_type": {
+        "value": "ABC123",
+        "description": "Contains non-numeric characters in numeric field"
+    },
+    "invalid_length_exceed_max": {
+        "value": "1234567890123456789",
+        "description": "Raw data exceeds maximum length"
+    },
+    "invalid_empty": {
+        "value": "",
+        "description": "Empty raw data"
+    }
+}
+```
+
 ### Date Field Test Cases
 ```json
 {
     "invalid_date": {
         "value": "1332",
         "description": "Invalid date value (invalid month)"
-    }
-}
-```
-
-### Variable Length Field Test Cases
-```json
-{
-    "invalid_length_indicator": {
-        "value": "20123456789",
-        "description": "Length indicator doesn't match actual data length"
     }
 }
 ```

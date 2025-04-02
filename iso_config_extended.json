@@ -9,19 +9,19 @@
     "notes": "Indicates the type of message being sent. Examples: 0100 - Auth Request, 0200 - Financial Transaction Request, 0420 - Reversal Request.",
     "testCases": {
       "invalid_type": {
-        "value": "oDoP",
+        "value": "OjaA",
         "description": "Contains non-numeric characters"
       },
       "invalid_special_chars": {
-        "value": "-=[}",
+        "value": "[%$~",
         "description": "Contains special characters"
       },
       "invalid_length_short": {
-        "value": "784",
+        "value": "482",
         "description": "Length shorter than required 4 characters"
       },
       "invalid_length_long": {
-        "value": "26538",
+        "value": "99515",
         "description": "Length longer than required 4 characters"
       }
     },
@@ -30,7 +30,7 @@
       "allowedChars": "0-9",
       "description": "Must be exactly 4 characters long with numeric characters"
     },
-    "validExample": "1059"
+    "validExample": "3163"
   },
   "PrimaryBitmap": {
     "name": "Primary Bitmap",
@@ -42,19 +42,19 @@
     "notes": "Each bit corresponds to a specific data element (1-64). If a bit is set to 1, the corresponding data element must be present. Presence of Secondary Bitmap is indicated by the first bit.",
     "testCases": {
       "invalid_type": {
-        "value": "$WyP{XLyQpm-jVo[&Yv;+/(*++x:}kinom}OD*]gBr$oAPx>T*G-oWIzSH(mI;?\\",
+        "value": "{OGX:YWVX+<DW?YIY/[?-hlZt//jDhh\"JwBC$l#nYq*g|g*i^`Y+N<Cx@Wh$pOZ{",
         "description": "Contains non-hexadecimal characters"
       },
       "invalid_hex_chars": {
-        "value": "KTLUTGHNQGUTKXYMWYVUTLNHXUGRGQVIMNLGMQPOJRUZNRVMMGJHKUQZYSNJXPIP",
+        "value": "ZHLWNGKPTMTIHYQTLXVKYUNWGRJJZKVHZLKWLLPZKTPVTGZVSSUMYMWKJRYILGNL",
         "description": "Contains invalid hexadecimal letters"
       },
       "invalid_bitmap_format": {
-        "value": "UAktHcoft9sv2tmRmmPphJA4lQx6EyVvYEJX5amxj1kQOdOLxJCHvjts58BnqCc5",
+        "value": "JtFyO2jemYRrbkYk3ql74iEF3CJGTzUuaRSkeEQSitQJbmUw8MwX6vAVUy6bmDr5",
         "description": "Invalid bitmap format"
       },
       "invalid_bitmap_length": {
-        "value": "11101111111101000101001101111011011101000101001101011000",
+        "value": "00101000010001100001100111000001110011100110110010001101",
         "description": "Invalid bitmap length"
       }
     }
@@ -69,19 +69,19 @@
     "notes": "Used if data elements 65-128 are present. The primary bitmap's first bit must be set to 1 if this is included.",
     "testCases": {
       "invalid_type": {
-        "value": "U]{H^\"|Y=w.<\"Oz%N/Ns'U(Mtg!Js}VZ&Mh|KJ~*>+^gvxCI}nJM,<.Wm>k{n>]}",
+        "value": "h\\-}~(i>$UqEwZlI.qOSVEGk,!M&B}*T$o[#HPr`=XB=r.+D{/%|t\\q\\=[lTSjUi",
         "description": "Contains non-hexadecimal characters"
       },
       "invalid_hex_chars": {
-        "value": "ZIOLUHTZPVJYJQZMSSXMOKQQXXKSIJJUYLHJRWSGWNOVSKZLUWNTSWXQSRPGYMTR",
+        "value": "ZLYGHYGIJWZUWSTJPXUULMTHXVLWSGIQUGWSJZGOKIRJTWITVVPGIIWWSXRTPRZQ",
         "description": "Contains invalid hexadecimal letters"
       },
       "invalid_bitmap_format": {
-        "value": "8rpDeXUsX2yVuV8baBaicyKZqbd9nONtg0AM1I0FrJrh8yXzosZ82hQcKoIyiZAw",
+        "value": "WVQtypyO0WiHqYfwTiYBKyvk47gB7GikR72oh50juJb86XUCPt7ZdpXLazJue0L3",
         "description": "Invalid bitmap format"
       },
       "invalid_bitmap_length": {
-        "value": "00111100010000011010111000110010111110110011000101101000",
+        "value": "01000100000111000010101001101000100011110101110011110100",
         "description": "Invalid bitmap length"
       }
     }
@@ -96,37 +96,35 @@
     "notes": "Should be validated using Luhn's check (mod 10). Must be encrypted and tokenized if present. Required for manually entered PANs or when track data is not available.",
     "testCases": {
       "invalid_type": {
-        "value": "ZhiqgNJOJRRirTtTpUr",
+        "value": "OgvtqjKRPGacaCtlznf",
         "description": "Contains non-numeric characters"
       },
       "invalid_special_chars": {
-        "value": "[\";='\\}!#:`&,,<<~@^",
+        "value": "=,_~$[{;-\\)_`_\"='~\"",
         "description": "Contains special characters"
       },
       "invalid_length_exceed_max": {
-        "value": "77843180912665455846",
-        "description": "Exceeds maximum length of 19 characters"
+        "value": "32734167448807118749",
+        "description": "Raw data exceeds maximum length of 19 characters"
       },
-      "invalid_length_indicator": {
-        "value": "207167625104326179101",
-        "description": "Length indicator doesn't match actual data length"
-      },
-      "missing_length_indicator": {
-        "value": "7167625104326179101",
-        "description": "Missing length indicator"
-      },
-      "zero_length": {
-        "value": "00",
-        "description": "Zero length indicator"
+      "invalid_empty": {
+        "value": "",
+        "description": "Empty raw data"
       }
     },
     "validationRules": {
       "maxLength": 19,
       "lengthIndicatorSize": 2,
       "allowedChars": "0-9",
-      "description": "Variable length up to 19 characters with llvar length indicator"
+      "description": "Variable length up to 19 characters with llvar length indicator",
+      "formatExample": {
+        "raw": "8186441804",
+        "formatted": "108186441804",
+        "explanation": "Length indicator '10' + raw data '8186441804'"
+      }
     },
-    "validExample": "1499804690504504"
+    "validExampleRaw": "8186441804",
+    "validExample": "108186441804"
   },
   "3": {
     "name": "Processing Code",
@@ -138,19 +136,19 @@
     "notes": "Defines transaction type and account information. Example: 000000 - Debit, 200000 - Credit (refund). First 2 digits indicate transaction type, next 2 indicate from account, and last 2 indicate to account.",
     "testCases": {
       "invalid_type": {
-        "value": "qGIZmm",
+        "value": "RiWqjT",
         "description": "Contains non-numeric characters"
       },
       "invalid_special_chars": {
-        "value": "'@)<.}",
+        "value": "\\>{-&?",
         "description": "Contains special characters"
       },
       "invalid_length_short": {
-        "value": "43300",
+        "value": "92132",
         "description": "Length shorter than required 6 characters"
       },
       "invalid_length_long": {
-        "value": "9197186",
+        "value": "7255471",
         "description": "Length longer than required 6 characters"
       }
     },
@@ -159,7 +157,7 @@
       "allowedChars": "0-9",
       "description": "Must be exactly 6 characters long with numeric characters"
     },
-    "validExample": "039587"
+    "validExample": "137338"
   },
   "4": {
     "name": "Amount, Transaction",
@@ -171,19 +169,19 @@
     "notes": "Represents the transaction amount in fixed length, padded with zeros. Last 2 digits represent decimal places.",
     "testCases": {
       "invalid_type": {
-        "value": "dqrlXhzxMuQY",
+        "value": "EcQhoIXoKMma",
         "description": "Contains non-numeric characters"
       },
       "invalid_special_chars": {
-        "value": "/%}?<}@&/,?@",
+        "value": "#`+;>`_}~=@\"",
         "description": "Contains special characters"
       },
       "invalid_length_short": {
-        "value": "45727153410",
+        "value": "91298957213",
         "description": "Length shorter than required 12 characters"
       },
       "invalid_length_long": {
-        "value": "6566719412394",
+        "value": "3897104262742",
         "description": "Length longer than required 12 characters"
       }
     },
@@ -192,7 +190,7 @@
       "allowedChars": "0-9",
       "description": "Must be exactly 12 characters long with numeric characters"
     },
-    "validExample": "878148633025"
+    "validExample": "284293656933"
   },
   "5": {
     "name": "Amount, Settlement",
@@ -204,19 +202,19 @@
     "notes": "Required if the transaction and settlement currencies are different. Not applicable for domestic transactions.",
     "testCases": {
       "invalid_type": {
-        "value": "VjJsTJjeBjEh",
+        "value": "IePKnjFjsLux",
         "description": "Contains non-numeric characters"
       },
       "invalid_special_chars": {
-        "value": ");`\\<_``)'+^",
+        "value": "\\/`'&$=-/-!%",
         "description": "Contains special characters"
       },
       "invalid_length_short": {
-        "value": "58263951362",
+        "value": "94195714985",
         "description": "Length shorter than required 12 characters"
       },
       "invalid_length_long": {
-        "value": "6702446717523",
+        "value": "3175271622008",
         "description": "Length longer than required 12 characters"
       }
     },
@@ -225,7 +223,7 @@
       "allowedChars": "0-9",
       "description": "Must be exactly 12 characters long with numeric characters"
     },
-    "validExample": "330398148544"
+    "validExample": "177437273849"
   },
   "6": {
     "name": "Amount, Cardholder Billing",
@@ -237,19 +235,19 @@
     "notes": "Required if the cardholder and settlement currencies are different. Includes fees from MasterCard.",
     "testCases": {
       "invalid_type": {
-        "value": "xikHIUbgsVug",
+        "value": "jLnkJekNHYCs",
         "description": "Contains non-numeric characters"
       },
       "invalid_special_chars": {
-        "value": "{[~($]/\"-~\":",
+        "value": "_'\\$?.++<=|@",
         "description": "Contains special characters"
       },
       "invalid_length_short": {
-        "value": "52314907925",
+        "value": "92407247484",
         "description": "Length shorter than required 12 characters"
       },
       "invalid_length_long": {
-        "value": "1476850261564",
+        "value": "6060582788213",
         "description": "Length longer than required 12 characters"
       }
     },
@@ -258,7 +256,7 @@
       "allowedChars": "0-9",
       "description": "Must be exactly 12 characters long with numeric characters"
     },
-    "validExample": "012313747110"
+    "validExample": "095560896777"
   },
   "7": {
     "name": "Transmission Date and Time",
@@ -270,11 +268,11 @@
     "notes": "Format: MMDDhhmmss. Must be a valid date and time expressed in GMT.",
     "testCases": {
       "invalid_type": {
-        "value": "UMTdvCjBxY",
+        "value": "YSFTKcOCGK",
         "description": "Contains non-numeric characters"
       },
       "invalid_special_chars": {
-        "value": "@-}-+->\"?+",
+        "value": "~^']^|-{\\.",
         "description": "Contains special characters"
       },
       "invalid_datetime": {
@@ -282,11 +280,11 @@
         "description": "Invalid date and time value"
       },
       "invalid_length_short": {
-        "value": "062906861",
+        "value": "145122522",
         "description": "Length shorter than required 10 characters"
       },
       "invalid_length_long": {
-        "value": "43434047788",
+        "value": "53724326853",
         "description": "Length longer than required 10 characters"
       }
     },
@@ -309,19 +307,19 @@
     "notes": "Required only if requested by the issuer. Not expected for domestic transactions.",
     "testCases": {
       "invalid_type": {
-        "value": "IdXXlgEt",
+        "value": "nZnlMfPH",
         "description": "Contains non-numeric characters"
       },
       "invalid_special_chars": {
-        "value": "%\"@?>=$@",
+        "value": ",,}>`.,|",
         "description": "Contains special characters"
       },
       "invalid_length_short": {
-        "value": "2191309",
+        "value": "2578366",
         "description": "Length shorter than required 8 characters"
       },
       "invalid_length_long": {
-        "value": "447922552",
+        "value": "129309287",
         "description": "Length longer than required 8 characters"
       }
     },
@@ -330,7 +328,7 @@
       "allowedChars": "0-9",
       "description": "Must be exactly 8 characters long with numeric characters"
     },
-    "validExample": "71830902"
+    "validExample": "21021464"
   },
   "9": {
     "name": "Conversion Rate, Settlement",
@@ -342,19 +340,19 @@
     "notes": "Required if the transaction and settlement currencies are different. Not applicable for domestic transactions.",
     "testCases": {
       "invalid_type": {
-        "value": "bXcFfFNs",
+        "value": "JqhMYjBg",
         "description": "Contains non-numeric characters"
       },
       "invalid_special_chars": {
-        "value": "]^\\)=\":/",
+        "value": "<;?[?_'!",
         "description": "Contains special characters"
       },
       "invalid_length_short": {
-        "value": "0375519",
+        "value": "6579759",
         "description": "Length shorter than required 8 characters"
       },
       "invalid_length_long": {
-        "value": "214865426",
+        "value": "766039295",
         "description": "Length longer than required 8 characters"
       }
     },
@@ -363,7 +361,7 @@
       "allowedChars": "0-9",
       "description": "Must be exactly 8 characters long with numeric characters"
     },
-    "validExample": "07933214"
+    "validExample": "26151852"
   },
   "10": {
     "name": "Conversion Rate, Cardholder Billing",
@@ -375,19 +373,19 @@
     "notes": "Required if the cardholder and settlement currencies are different. Not applicable for domestic transactions.",
     "testCases": {
       "invalid_type": {
-        "value": "kVUjfyjy",
+        "value": "dxnnzNUV",
         "description": "Contains non-numeric characters"
       },
       "invalid_special_chars": {
-        "value": "(=/,[}:/",
+        "value": ")>;($(?@",
         "description": "Contains special characters"
       },
       "invalid_length_short": {
-        "value": "7890935",
+        "value": "2617932",
         "description": "Length shorter than required 8 characters"
       },
       "invalid_length_long": {
-        "value": "617543582",
+        "value": "373238242",
         "description": "Length longer than required 8 characters"
       }
     },
@@ -396,7 +394,7 @@
       "allowedChars": "0-9",
       "description": "Must be exactly 8 characters long with numeric characters"
     },
-    "validExample": "25906998"
+    "validExample": "73030615"
   },
   "11": {
     "name": "System Trace Audit Number",
@@ -408,19 +406,19 @@
     "notes": "Generated by the acquirer/merchant and ensures uniqueness for the day. Combined with other identifiers for global uniqueness.",
     "testCases": {
       "invalid_type": {
-        "value": "eLsbVe",
+        "value": "CUoQjJ",
         "description": "Contains non-numeric characters"
       },
       "invalid_special_chars": {
-        "value": "+|&]](",
+        "value": "!<~~`{",
         "description": "Contains special characters"
       },
       "invalid_length_short": {
-        "value": "92430",
+        "value": "10330",
         "description": "Length shorter than required 6 characters"
       },
       "invalid_length_long": {
-        "value": "8477181",
+        "value": "4657545",
         "description": "Length longer than required 6 characters"
       }
     },
@@ -429,7 +427,7 @@
       "allowedChars": "0-9",
       "description": "Must be exactly 6 characters long with numeric characters"
     },
-    "validExample": "437001"
+    "validExample": "209150"
   },
   "12": {
     "name": "Time, Local Transaction",
@@ -441,11 +439,11 @@
     "notes": "Format: hhmmss. Must be a valid time. Checked against issuer's system time for variance.",
     "testCases": {
       "invalid_type": {
-        "value": "IxrRNA",
+        "value": "WqbWvI",
         "description": "Contains non-numeric characters"
       },
       "invalid_special_chars": {
-        "value": "$@-?>^",
+        "value": "\"/\":$'",
         "description": "Contains special characters"
       },
       "invalid_time": {
@@ -453,11 +451,11 @@
         "description": "Invalid time value (invalid minutes)"
       },
       "invalid_length_short": {
-        "value": "85321",
+        "value": "27344",
         "description": "Length shorter than required 6 characters"
       },
       "invalid_length_long": {
-        "value": "6774758",
+        "value": "2614397",
         "description": "Length longer than required 6 characters"
       }
     },
@@ -480,11 +478,11 @@
     "notes": "Format: MMDD. Must be a valid date. Checked against issuer's system time for variance.",
     "testCases": {
       "invalid_type": {
-        "value": "fMQS",
+        "value": "YhPn",
         "description": "Contains non-numeric characters"
       },
       "invalid_special_chars": {
-        "value": "'%'.",
+        "value": "\".\"^",
         "description": "Contains special characters"
       },
       "invalid_date": {
@@ -492,11 +490,11 @@
         "description": "Invalid date value (invalid month)"
       },
       "invalid_length_short": {
-        "value": "629",
+        "value": "681",
         "description": "Length shorter than required 4 characters"
       },
       "invalid_length_long": {
-        "value": "19931",
+        "value": "75240",
         "description": "Length longer than required 4 characters"
       }
     },
@@ -519,11 +517,11 @@
     "notes": "Format: YYMM. Used along with DE 2 to validate the card.",
     "testCases": {
       "invalid_type": {
-        "value": "CcDP",
+        "value": "iWkZ",
         "description": "Contains non-numeric characters"
       },
       "invalid_special_chars": {
-        "value": "^}%@",
+        "value": "[=.,",
         "description": "Contains special characters"
       },
       "invalid_date": {
@@ -531,11 +529,11 @@
         "description": "Invalid date value (invalid month)"
       },
       "invalid_length_short": {
-        "value": "124",
+        "value": "399",
         "description": "Length shorter than required 4 characters"
       },
       "invalid_length_long": {
-        "value": "70709",
+        "value": "23710",
         "description": "Length longer than required 4 characters"
       }
     },
@@ -558,11 +556,11 @@
     "notes": "Format: MMDD. Must be a valid date. Checked against issuer's system time for variance.",
     "testCases": {
       "invalid_type": {
-        "value": "idYg",
+        "value": "Enoi",
         "description": "Contains non-numeric characters"
       },
       "invalid_special_chars": {
-        "value": "*$@/",
+        "value": "}-|@",
         "description": "Contains special characters"
       },
       "invalid_date": {
@@ -570,11 +568,11 @@
         "description": "Invalid date value (invalid month)"
       },
       "invalid_length_short": {
-        "value": "824",
+        "value": "648",
         "description": "Length shorter than required 4 characters"
       },
       "invalid_length_long": {
-        "value": "73463",
+        "value": "29294",
         "description": "Length longer than required 4 characters"
       }
     },
@@ -597,11 +595,11 @@
     "notes": "Required if requested by the issuer. Format: MMDD.",
     "testCases": {
       "invalid_type": {
-        "value": "Qrxx",
+        "value": "vjps",
         "description": "Contains non-numeric characters"
       },
       "invalid_special_chars": {
-        "value": "?|#|",
+        "value": "_|)*",
         "description": "Contains special characters"
       },
       "invalid_date": {
@@ -609,11 +607,11 @@
         "description": "Invalid date value (invalid month)"
       },
       "invalid_length_short": {
-        "value": "801",
+        "value": "001",
         "description": "Length shorter than required 4 characters"
       },
       "invalid_length_long": {
-        "value": "43061",
+        "value": "88104",
         "description": "Length longer than required 4 characters"
       }
     },
@@ -636,19 +634,19 @@
     "notes": "Validates against a list of accepted Merchant Category Codes (MCCs).",
     "testCases": {
       "invalid_type": {
-        "value": "dTEL",
+        "value": "QBKB",
         "description": "Contains non-numeric characters"
       },
       "invalid_special_chars": {
-        "value": "`>/)",
+        "value": "=%\\)",
         "description": "Contains special characters"
       },
       "invalid_length_short": {
-        "value": "427",
+        "value": "392",
         "description": "Length shorter than required 4 characters"
       },
       "invalid_length_long": {
-        "value": "97460",
+        "value": "08541",
         "description": "Length longer than required 4 characters"
       }
     },
@@ -657,7 +655,7 @@
       "allowedChars": "0-9",
       "description": "Must be exactly 4 characters long with numeric characters"
     },
-    "validExample": "7262"
+    "validExample": "8471"
   },
   "19": {
     "name": "Acquiring Institution Country Code",
@@ -669,19 +667,19 @@
     "notes": "Only received if acquirer and issuer are in different countries. Decline if received other than USA.",
     "testCases": {
       "invalid_type": {
-        "value": "JCU",
+        "value": "nyq",
         "description": "Contains non-numeric characters"
       },
       "invalid_special_chars": {
-        "value": "&]]",
+        "value": "=.+",
         "description": "Contains special characters"
       },
       "invalid_length_short": {
-        "value": "84",
+        "value": "36",
         "description": "Length shorter than required 3 characters"
       },
       "invalid_length_long": {
-        "value": "4303",
+        "value": "1927",
         "description": "Length longer than required 3 characters"
       }
     },
@@ -690,7 +688,7 @@
       "allowedChars": "0-9",
       "description": "Must be exactly 3 characters long with numeric characters"
     },
-    "validExample": "587"
+    "validExample": "151"
   },
   "20": {
     "name": "Primary Account Number (PAN) Extended Country Code",
@@ -702,19 +700,19 @@
     "notes": "Required if DE 34 (PAN Extended) is sent. Not applicable for MVP.",
     "testCases": {
       "invalid_type": {
-        "value": "vcT",
+        "value": "NFh",
         "description": "Contains non-numeric characters"
       },
       "invalid_special_chars": {
-        "value": ":_*",
+        "value": "-+?",
         "description": "Contains special characters"
       },
       "invalid_length_short": {
-        "value": "23",
+        "value": "39",
         "description": "Length shorter than required 3 characters"
       },
       "invalid_length_long": {
-        "value": "5387",
+        "value": "2274",
         "description": "Length longer than required 3 characters"
       }
     },
@@ -723,7 +721,7 @@
       "allowedChars": "0-9",
       "description": "Must be exactly 3 characters long with numeric characters"
     },
-    "validExample": "855"
+    "validExample": "298"
   },
   "21": {
     "name": "Forwarding Institution Country Code",
@@ -735,11 +733,11 @@
     "notes": "Only received if acquirer and issuer are in different countries. Decline if received other than USA.",
     "testCases": {
       "invalid_type": {
-        "value": "uzr",
+        "value": "cIr",
         "description": "Contains non-numeric characters"
       },
       "invalid_special_chars": {
-        "value": "%*!",
+        "value": "[(\\",
         "description": "Contains special characters"
       },
       "invalid_length_short": {
@@ -747,7 +745,7 @@
         "description": "Length shorter than required 3 characters"
       },
       "invalid_length_long": {
-        "value": "5003",
+        "value": "8717",
         "description": "Length longer than required 3 characters"
       }
     },
@@ -756,7 +754,7 @@
       "allowedChars": "0-9",
       "description": "Must be exactly 3 characters long with numeric characters"
     },
-    "validExample": "376"
+    "validExample": "557"
   },
   "22": {
     "name": "Point-of-Service Entry Mode",
@@ -768,19 +766,19 @@
     "notes": "Indicates how card data was captured. Examples: 01X - Manual entry, 02X - Card swipe, 06X - Card swipe with PIN, 09X - eCommerce.",
     "testCases": {
       "invalid_type": {
-        "value": "JKx",
+        "value": "zMw",
         "description": "Contains non-numeric characters"
       },
       "invalid_special_chars": {
-        "value": "^!|",
+        "value": "-;:",
         "description": "Contains special characters"
       },
       "invalid_length_short": {
-        "value": "87",
+        "value": "71",
         "description": "Length shorter than required 3 characters"
       },
       "invalid_length_long": {
-        "value": "3860",
+        "value": "4962",
         "description": "Length longer than required 3 characters"
       }
     },
@@ -789,7 +787,7 @@
       "allowedChars": "0-9",
       "description": "Must be exactly 3 characters long with numeric characters"
     },
-    "validExample": "067"
+    "validExample": "374"
   },
   "23": {
     "name": "Card Sequence Number",
@@ -801,19 +799,19 @@
     "notes": "Sent only if track data is not sent for POS transactions and one PAN has multiple cards.",
     "testCases": {
       "invalid_type": {
-        "value": "MdO",
+        "value": "GdL",
         "description": "Contains non-numeric characters"
       },
       "invalid_special_chars": {
-        "value": "<\"+",
+        "value": "{{>",
         "description": "Contains special characters"
       },
       "invalid_length_short": {
-        "value": "19",
+        "value": "08",
         "description": "Length shorter than required 3 characters"
       },
       "invalid_length_long": {
-        "value": "3158",
+        "value": "3047",
         "description": "Length longer than required 3 characters"
       }
     },
@@ -822,7 +820,7 @@
       "allowedChars": "0-9",
       "description": "Must be exactly 3 characters long with numeric characters"
     },
-    "validExample": "346"
+    "validExample": "790"
   },
   "25": {
     "name": "Point-of-Service Condition Code",
@@ -834,19 +832,19 @@
     "notes": "No specific validation required. Optional field.",
     "testCases": {
       "invalid_type": {
-        "value": "rp",
+        "value": "sX",
         "description": "Contains non-numeric characters"
       },
       "invalid_special_chars": {
-        "value": "$)",
+        "value": ":?",
         "description": "Contains special characters"
       },
       "invalid_length_short": {
-        "value": "9",
+        "value": "4",
         "description": "Length shorter than required 2 characters"
       },
       "invalid_length_long": {
-        "value": "117",
+        "value": "555",
         "description": "Length longer than required 2 characters"
       }
     },
@@ -855,7 +853,7 @@
       "allowedChars": "0-9",
       "description": "Must be exactly 2 characters long with numeric characters"
     },
-    "validExample": "18"
+    "validExample": "81"
   },
   "26": {
     "name": "Point-of-Service PIN Capture Code",
@@ -867,19 +865,19 @@
     "notes": "Indicates the PIN block. Ignored in production unless certification requires it.",
     "testCases": {
       "invalid_type": {
-        "value": "fd",
+        "value": "Bz",
         "description": "Contains non-numeric characters"
       },
       "invalid_special_chars": {
-        "value": ",/",
+        "value": "/{",
         "description": "Contains special characters"
       },
       "invalid_length_short": {
-        "value": "6",
+        "value": "2",
         "description": "Length shorter than required 2 characters"
       },
       "invalid_length_long": {
-        "value": "259",
+        "value": "428",
         "description": "Length longer than required 2 characters"
       }
     },
@@ -888,7 +886,7 @@
       "allowedChars": "0-9",
       "description": "Must be exactly 2 characters long with numeric characters"
     },
-    "validExample": "16"
+    "validExample": "83"
   },
   "27": {
     "name": "Authorization Identification Response Length",
@@ -900,11 +898,11 @@
     "notes": "Used by acquirers that cannot accept 6-byte values in DE 38. Ignored if present.",
     "testCases": {
       "invalid_type": {
-        "value": "z",
+        "value": "a",
         "description": "Contains non-numeric characters"
       },
       "invalid_special_chars": {
-        "value": "|",
+        "value": "@",
         "description": "Contains special characters"
       },
       "invalid_length_short": {
@@ -912,7 +910,7 @@
         "description": "Length shorter than required 1 characters"
       },
       "invalid_length_long": {
-        "value": "43",
+        "value": "87",
         "description": "Length longer than required 1 characters"
       }
     },
@@ -921,7 +919,7 @@
       "allowedChars": "0-9",
       "description": "Must be exactly 1 characters long with numeric characters"
     },
-    "validExample": "3"
+    "validExample": "4"
   },
   "28": {
     "name": "Amount, Transaction Fee",
@@ -933,15 +931,15 @@
     "notes": "Required when DE 30 is present. Indicates surcharge, rebate, or transaction fee.",
     "testCases": {
       "invalid_special_chars": {
-        "value": "-]?=;$>-+",
+        "value": "{{_}/<;].",
         "description": "Contains invalid special characters"
       },
       "invalid_length_short": {
-        "value": "JTGsFh40",
+        "value": "5q62py74",
         "description": "Length shorter than required 9 characters"
       },
       "invalid_length_long": {
-        "value": "qjTgkQkneE",
+        "value": "4Ns6CyfsE4",
         "description": "Length longer than required 9 characters"
       }
     },
@@ -950,7 +948,7 @@
       "allowedChars": "a-zA-Z0-9",
       "description": "Must be exactly 9 characters long with alphanumeric characters"
     },
-    "validExample": "cwgjCZ2V3"
+    "validExample": "hSFMF7hL9"
   },
   "29": {
     "name": "Amount, Settlement Fee",
@@ -962,15 +960,15 @@
     "notes": "Required if the transaction and settlement currencies are different. Not applicable for domestic transactions.",
     "testCases": {
       "invalid_special_chars": {
-        "value": "~}.=<;_\\^",
+        "value": "=.$+?\"|\"(",
         "description": "Contains invalid special characters"
       },
       "invalid_length_short": {
-        "value": "NZZzrcUj",
+        "value": "iL8eYaYx",
         "description": "Length shorter than required 9 characters"
       },
       "invalid_length_long": {
-        "value": "LDJIFSlmwP",
+        "value": "xpxC1mZ0p5",
         "description": "Length longer than required 9 characters"
       }
     },
@@ -979,7 +977,7 @@
       "allowedChars": "a-zA-Z0-9",
       "description": "Must be exactly 9 characters long with alphanumeric characters"
     },
-    "validExample": "ezfLhRp2V"
+    "validExample": "qRzRHUbgS"
   },
   "30": {
     "name": "Amount, Transaction Processing Fee",
@@ -991,15 +989,15 @@
     "notes": "Required if requested by the issuer. No specific validation required.",
     "testCases": {
       "invalid_special_chars": {
-        "value": "('!){@#\"-",
+        "value": "')-?]~?{<",
         "description": "Contains invalid special characters"
       },
       "invalid_length_short": {
-        "value": "g0aOqdzE",
+        "value": "DHAmoSOl",
         "description": "Length shorter than required 9 characters"
       },
       "invalid_length_long": {
-        "value": "PkKtCKzuys",
+        "value": "6nNWqyU1ud",
         "description": "Length longer than required 9 characters"
       }
     },
@@ -1008,7 +1006,7 @@
       "allowedChars": "a-zA-Z0-9",
       "description": "Must be exactly 9 characters long with alphanumeric characters"
     },
-    "validExample": "UkVLcxQDq"
+    "validExample": "gKd8iWr0b"
   },
   "31": {
     "name": "Amount, Settlement Processing Fee",
@@ -1020,15 +1018,15 @@
     "notes": "Required if requested by the issuer. No specific validation required.",
     "testCases": {
       "invalid_special_chars": {
-        "value": "?!'{]]-;<",
+        "value": "#?'\":?[:;",
         "description": "Contains invalid special characters"
       },
       "invalid_length_short": {
-        "value": "g7KzmF3b",
+        "value": "hb0lBGHl",
         "description": "Length shorter than required 9 characters"
       },
       "invalid_length_long": {
-        "value": "YXxCDg1sGn",
+        "value": "2CYilXyTj3",
         "description": "Length longer than required 9 characters"
       }
     },
@@ -1037,7 +1035,7 @@
       "allowedChars": "a-zA-Z0-9",
       "description": "Must be exactly 9 characters long with alphanumeric characters"
     },
-    "validExample": "fBhJswCy5"
+    "validExample": "9NcStJ4IG"
   },
   "32": {
     "name": "Acquiring Institution Identification Code",
@@ -1049,37 +1047,35 @@
     "notes": "Critical for MID adjudication. Format: 1NNNNNNNNC or 59NNNNNNNNC. Check digit must be validated.",
     "testCases": {
       "invalid_type": {
-        "value": "pluPkYQEZLm",
+        "value": "KxHzwLtUkNE",
         "description": "Contains non-numeric characters"
       },
       "invalid_special_chars": {
-        "value": ".;\\]%\"?/;_*",
+        "value": ")+~\"_#?(`}\\",
         "description": "Contains special characters"
       },
       "invalid_length_exceed_max": {
-        "value": "713678943589",
-        "description": "Exceeds maximum length of 11 characters"
+        "value": "463400361483",
+        "description": "Raw data exceeds maximum length of 11 characters"
       },
-      "invalid_length_indicator": {
-        "value": "1284684358888",
-        "description": "Length indicator doesn't match actual data length"
-      },
-      "missing_length_indicator": {
-        "value": "84684358888",
-        "description": "Missing length indicator"
-      },
-      "zero_length": {
-        "value": "00",
-        "description": "Zero length indicator"
+      "invalid_empty": {
+        "value": "",
+        "description": "Empty raw data"
       }
     },
     "validationRules": {
       "maxLength": 11,
       "lengthIndicatorSize": 2,
       "allowedChars": "0-9",
-      "description": "Variable length up to 11 characters with llvar length indicator"
+      "description": "Variable length up to 11 characters with llvar length indicator",
+      "formatExample": {
+        "raw": "49456796",
+        "formatted": "0849456796",
+        "explanation": "Length indicator '08' + raw data '49456796'"
+      }
     },
-    "validExample": "0825765714"
+    "validExampleRaw": "49456796",
+    "validExample": "0849456796"
   },
   "33": {
     "name": "Forwarding Institution Identification Code",
@@ -1091,37 +1087,35 @@
     "notes": "Optional field. No specific validation required.",
     "testCases": {
       "invalid_type": {
-        "value": "EotuWqnrySj",
+        "value": "UZYUPBedzmN",
         "description": "Contains non-numeric characters"
       },
       "invalid_special_chars": {
-        "value": "@*/*~++!$-!",
+        "value": "@/%~;%@%},<",
         "description": "Contains special characters"
       },
       "invalid_length_exceed_max": {
-        "value": "740320878249",
-        "description": "Exceeds maximum length of 11 characters"
+        "value": "685443656967",
+        "description": "Raw data exceeds maximum length of 11 characters"
       },
-      "invalid_length_indicator": {
-        "value": "1225798976220",
-        "description": "Length indicator doesn't match actual data length"
-      },
-      "missing_length_indicator": {
-        "value": "25798976220",
-        "description": "Missing length indicator"
-      },
-      "zero_length": {
-        "value": "00",
-        "description": "Zero length indicator"
+      "invalid_empty": {
+        "value": "",
+        "description": "Empty raw data"
       }
     },
     "validationRules": {
       "maxLength": 11,
       "lengthIndicatorSize": 2,
       "allowedChars": "0-9",
-      "description": "Variable length up to 11 characters with llvar length indicator"
+      "description": "Variable length up to 11 characters with llvar length indicator",
+      "formatExample": {
+        "raw": "9904",
+        "formatted": "049904",
+        "explanation": "Length indicator '04' + raw data '9904'"
+      }
     },
-    "validExample": "1117595876415"
+    "validExampleRaw": "9904",
+    "validExample": "049904"
   },
   "34": {
     "name": "Primay Account Number (PAN) Extended",
@@ -1133,37 +1127,35 @@
     "notes": "Optional field. No specific validation required.",
     "testCases": {
       "invalid_type": {
-        "value": "zHCFFduqHiQOwcEbfADHifYjriPO",
+        "value": "WKbfZAPLhfvSmMfVtCVoFKrKxoMr",
         "description": "Contains non-numeric characters"
       },
       "invalid_special_chars": {
-        "value": "$,%)\\']>_^/`;$(]#])&{*#`/#**",
+        "value": "^;^`(.+)\\*_~.%>|@'[]//=\"'(<^",
         "description": "Contains special characters"
       },
       "invalid_length_exceed_max": {
-        "value": "23265425515231379714136519632",
-        "description": "Exceeds maximum length of 28 characters"
+        "value": "00914512749745941141268634642",
+        "description": "Raw data exceeds maximum length of 28 characters"
       },
-      "invalid_length_indicator": {
-        "value": "292498660806815672504284974559",
-        "description": "Length indicator doesn't match actual data length"
-      },
-      "missing_length_indicator": {
-        "value": "2498660806815672504284974559",
-        "description": "Missing length indicator"
-      },
-      "zero_length": {
-        "value": "00",
-        "description": "Zero length indicator"
+      "invalid_empty": {
+        "value": "",
+        "description": "Empty raw data"
       }
     },
     "validationRules": {
       "maxLength": 28,
       "lengthIndicatorSize": 2,
       "allowedChars": "0-9",
-      "description": "Variable length up to 28 characters with llvar length indicator"
+      "description": "Variable length up to 28 characters with llvar length indicator",
+      "formatExample": {
+        "raw": "691873411317",
+        "formatted": "12691873411317",
+        "explanation": "Length indicator '12' + raw data '691873411317'"
+      }
     },
-    "validExample": "1152587045127"
+    "validExampleRaw": "691873411317",
+    "validExample": "12691873411317"
   },
   "35": {
     "name": "Track 2 Data",
@@ -1175,33 +1167,31 @@
     "notes": "Required if DE 22 value is 02 or 06. Not applicable for manual entry transactions.",
     "testCases": {
       "invalid_special_chars": {
-        "value": ".:].~($\\/.~!=;@&@[,##&_./]`{?|^)}*$~>",
+        "value": "`\"!*+#`{`$-$,),$_.)^^'!{[!^>@:*$+'|!#",
         "description": "Contains invalid special characters"
       },
       "invalid_length_exceed_max": {
-        "value": "TgxwLXFnj5ndYHPyKjYENun9lJ4WQIroQQgShC",
-        "description": "Exceeds maximum length of 37 characters"
+        "value": "FtaqvJ03HT3qmFcYSCclM747E9CPoJHh4JaPnz",
+        "description": "Raw data exceeds maximum length of 37 characters"
       },
-      "invalid_length_indicator": {
-        "value": "3886gvnjqE66nxd0bFsgY4BBQKUFSUwRlbg1nUW",
-        "description": "Length indicator doesn't match actual data length"
-      },
-      "missing_length_indicator": {
-        "value": "86gvnjqE66nxd0bFsgY4BBQKUFSUwRlbg1nUW",
-        "description": "Missing length indicator"
-      },
-      "zero_length": {
-        "value": "00",
-        "description": "Zero length indicator"
+      "invalid_empty": {
+        "value": "",
+        "description": "Empty raw data"
       }
     },
     "validationRules": {
       "maxLength": 37,
       "lengthIndicatorSize": 2,
       "allowedChars": "a-zA-Z0-9",
-      "description": "Variable length up to 37 characters with llvar length indicator"
+      "description": "Variable length up to 37 characters with llvar length indicator",
+      "formatExample": {
+        "raw": "M",
+        "formatted": "01M",
+        "explanation": "Length indicator '01' + raw data 'M'"
+      }
     },
-    "validExample": "07dY1IFM5"
+    "validExampleRaw": "M",
+    "validExample": "01M"
   },
   "37": {
     "name": "Retrieval Reference Number",
@@ -1213,15 +1203,15 @@
     "notes": "Generated by the acquirer and ensures uniqueness for the day. Combined with other identifiers for global uniqueness.",
     "testCases": {
       "invalid_special_chars": {
-        "value": "#[=:-'=@\\-{.",
+        "value": "]>@@.;{~.>([",
         "description": "Contains invalid special characters"
       },
       "invalid_length_short": {
-        "value": "0pgtimm02IF",
+        "value": "ZR7lSEJX9FE",
         "description": "Length shorter than required 12 characters"
       },
       "invalid_length_long": {
-        "value": "eB5nhyKb3a97a",
+        "value": "sGlAjVHKIKNxF",
         "description": "Length longer than required 12 characters"
       }
     },
@@ -1230,7 +1220,7 @@
       "allowedChars": "a-zA-Z0-9",
       "description": "Must be exactly 12 characters long with alphanumeric characters"
     },
-    "validExample": "T225MbFFEPae"
+    "validExample": "cIxzslztZSf6"
   },
   "38": {
     "name": "Authorization Identification Response",
@@ -1242,15 +1232,15 @@
     "notes": "Populated by the issuer. May be pre-populated in advice messages.",
     "testCases": {
       "invalid_special_chars": {
-        "value": "(@@#%!",
+        "value": "<<$!$`",
         "description": "Contains invalid special characters"
       },
       "invalid_length_short": {
-        "value": "UoLOG",
+        "value": "viaS7",
         "description": "Length shorter than required 6 characters"
       },
       "invalid_length_long": {
-        "value": "6bKYsZc",
+        "value": "qSlzEwK",
         "description": "Length longer than required 6 characters"
       }
     },
@@ -1259,7 +1249,7 @@
       "allowedChars": "a-zA-Z0-9",
       "description": "Must be exactly 6 characters long with alphanumeric characters"
     },
-    "validExample": "CUwzni"
+    "validExample": "08S6Tj"
   },
   "39": {
     "name": "Response Code",
@@ -1271,15 +1261,15 @@
     "notes": "Indicates the result of the transaction. Example: '00' - Approved, '05' - Declined.",
     "testCases": {
       "invalid_special_chars": {
-        "value": "##?",
+        "value": "&'!",
         "description": "Contains invalid special characters"
       },
       "invalid_length_short": {
-        "value": "rR",
+        "value": "7m",
         "description": "Length shorter than required 3 characters"
       },
       "invalid_length_long": {
-        "value": "f4JA",
+        "value": "dfNU",
         "description": "Length longer than required 3 characters"
       }
     },
@@ -1288,7 +1278,7 @@
       "allowedChars": "a-zA-Z0-9",
       "description": "Must be exactly 3 characters long with alphanumeric characters"
     },
-    "validExample": "Ykv"
+    "validExample": "6bw"
   },
   "40": {
     "name": "Service Restriction Code",
@@ -1300,15 +1290,15 @@
     "notes": "Optional field. No specific validation required.",
     "testCases": {
       "invalid_special_chars": {
-        "value": "@%'",
+        "value": "'#'",
         "description": "Contains invalid special characters"
       },
       "invalid_length_short": {
-        "value": "Rr",
+        "value": "UR",
         "description": "Length shorter than required 3 characters"
       },
       "invalid_length_long": {
-        "value": "2iCR",
+        "value": "rRGU",
         "description": "Length longer than required 3 characters"
       }
     },
@@ -1317,7 +1307,7 @@
       "allowedChars": "a-zA-Z0-9",
       "description": "Must be exactly 3 characters long with alphanumeric characters"
     },
-    "validExample": "7IK"
+    "validExample": "jha"
   },
   "41": {
     "name": "Card Acceptor Terminal Identification",
@@ -1329,15 +1319,15 @@
     "notes": "Used for fraud analysis and MID verification.",
     "testCases": {
       "invalid_special_chars": {
-        "value": ">=+|]&]%",
+        "value": "<^>*;>`+",
         "description": "Contains invalid special characters"
       },
       "invalid_length_short": {
-        "value": "v0pI1Bp",
+        "value": "SFvKlEJ",
         "description": "Length shorter than required 8 characters"
       },
       "invalid_length_long": {
-        "value": "nTkg6jJah",
+        "value": "a6GoEaik1",
         "description": "Length longer than required 8 characters"
       }
     },
@@ -1346,7 +1336,7 @@
       "allowedChars": "a-zA-Z0-9",
       "description": "Must be exactly 8 characters long with alphanumeric characters"
     },
-    "validExample": "7MPRaw2Y"
+    "validExample": "6RaFMiKb"
   },
   "42": {
     "name": "Card Acceptor Identification Code",
@@ -1358,15 +1348,15 @@
     "notes": "Critical for MID-based adjudication. Default to MCC if not present for non-integrated merchants.",
     "testCases": {
       "invalid_special_chars": {
-        "value": "/?)$.>-+*`*{-@*",
+        "value": ">#\"#_[[%~`*${?~",
         "description": "Contains invalid special characters"
       },
       "invalid_length_short": {
-        "value": "pXFeyyI6MolzIR",
+        "value": "WRTChorvXywnx7",
         "description": "Length shorter than required 15 characters"
       },
       "invalid_length_long": {
-        "value": "JIXuvwIh5p2GaB7t",
+        "value": "O9MfHjd3lfOakWN7",
         "description": "Length longer than required 15 characters"
       }
     },
@@ -1375,7 +1365,7 @@
       "allowedChars": "a-zA-Z0-9",
       "description": "Must be exactly 15 characters long with alphanumeric characters"
     },
-    "validExample": "jcyfCBB6BJfagrg"
+    "validExample": "DXVuvUp0iAqO86g"
   },
   "43": {
     "name": "Card Acceptor Name / Location",
@@ -1387,15 +1377,15 @@
     "notes": "Critical for MID-based adjudication.",
     "testCases": {
       "invalid_special_chars": {
-        "value": "@>;<\"}{=_\"{*$_^){]?@#,>;.`-,)({:>&{|#&%-",
+        "value": "*+{{>};`+%,`{%@\"#$@-,|`-.(=*/~{$|&'~+|!^",
         "description": "Contains invalid special characters"
       },
       "invalid_length_short": {
-        "value": "cCHjkfMzOZ6hbm1geeDYOxD0TlywicZuphhPw68",
+        "value": "sQYWotcqy9RMu4Qq3S54mCdKk9wBJ0O5NMz6VsE",
         "description": "Length shorter than required 40 characters"
       },
       "invalid_length_long": {
-        "value": "nc7ND7RBpOGNlk7OUZQNT4Wjk0Rxp2uEkc4u15Ohg",
+        "value": "I1z7FBB5cAUpS5u5IdGzuVQ40Osd09Jh0MNwQU7gV",
         "description": "Length longer than required 40 characters"
       }
     },
@@ -1404,7 +1394,7 @@
       "allowedChars": "a-zA-Z0-9",
       "description": "Must be exactly 40 characters long with alphanumeric characters"
     },
-    "validExample": "14zQCBBVs0V4PjoNoJ1plpzQNq2BF9tqvNeJIIcR"
+    "validExample": "1Tos6A1kMJZoVEEYnLAF25DSUC6QeRuOxYBKPXuL"
   },
   "45": {
     "name": "Track 1 Data",
@@ -1416,33 +1406,31 @@
     "notes": "Not expected for MVP. Ignore if received.",
     "testCases": {
       "invalid_special_chars": {
-        "value": "{))}]@({(\"*_`?=,&*-#:^(},\"{_=~?)]>}=@=!;&:;\";@|]%#\"}]};]*__`[&/;-`}*\":&/)<[;",
+        "value": ";}@*:)>`~+,{:(\"]$#])-!,_%}(;\\}<>^#},|/%;%$|*$/>](>}!)?.^\\'~^#-$;@;+(=<)`#,;^",
         "description": "Contains invalid special characters"
       },
       "invalid_length_exceed_max": {
-        "value": "CAXDvtiym0QMLRNqF0SyCsMXzHuMvv0Nnq5vwDRDdA0YmNBSfmIG2ru5juBBJu32GyTgm9zT7aaNi",
-        "description": "Exceeds maximum length of 76 characters"
+        "value": "muTGeAWs81CL32TeU25YE1jWOULlOxZC2F0SvSzQKTxTpjgZJHD4ULH8gMhotdq6b7ll7UPpKTsGi",
+        "description": "Raw data exceeds maximum length of 76 characters"
       },
-      "invalid_length_indicator": {
-        "value": "77BXimDFvvcDTCBcbR1mYIlX9QdYLuWDwtx85nKoKix7neCVKdgju8dlE1XBWvd2EYvI08KKtiVVnl",
-        "description": "Length indicator doesn't match actual data length"
-      },
-      "missing_length_indicator": {
-        "value": "BXimDFvvcDTCBcbR1mYIlX9QdYLuWDwtx85nKoKix7neCVKdgju8dlE1XBWvd2EYvI08KKtiVVnl",
-        "description": "Missing length indicator"
-      },
-      "zero_length": {
-        "value": "00",
-        "description": "Zero length indicator"
+      "invalid_empty": {
+        "value": "",
+        "description": "Empty raw data"
       }
     },
     "validationRules": {
       "maxLength": 76,
       "lengthIndicatorSize": 2,
       "allowedChars": "a-zA-Z0-9",
-      "description": "Variable length up to 76 characters with llvar length indicator"
+      "description": "Variable length up to 76 characters with llvar length indicator",
+      "formatExample": {
+        "raw": "Nir0F1d0gbFbRsHM1yKmgBonk5mWBhTabr12YV",
+        "formatted": "38Nir0F1d0gbFbRsHM1yKmgBonk5mWBhTabr12YV",
+        "explanation": "Length indicator '38' + raw data 'Nir0F1d0gbFbRsHM1yKmgBonk5mWBhTabr12YV'"
+      }
     },
-    "validExample": "47EXUCH04yebM15DpBtUUkZVF3glSkWk3nDzlW8ZJmek7UKxL"
+    "validExampleRaw": "Nir0F1d0gbFbRsHM1yKmgBonk5mWBhTabr12YV",
+    "validExample": "38Nir0F1d0gbFbRsHM1yKmgBonk5mWBhTabr12YV"
   },
   "46": {
     "name": "Additional Fees",
@@ -1454,33 +1442,31 @@
     "notes": "Not expected for MVP. Pass to auth engine if received.",
     "testCases": {
       "invalid_special_chars": {
-        "value": "'!@'[!+|`,#?`'+^{(^_;\"&^[%)~^#-!#&&(>^?&/<|{~/;/?\"`~>+&|{+&<}^'@[:-+*\\[_@*:|$:$?\"%~~},]@",
+        "value": "#~#}^~@*[-`(\"')%*;.>&&>|}?$]\\:([.?=+(;}~`[[[&@/~~/#_~=<)|[+(!;^~$]`'*\\|]|>.[%&@].\\`*$#`_",
         "description": "Contains invalid special characters"
       },
       "invalid_length_exceed_max": {
-        "value": "vKIeI0pVWSOqU4swzk3Lp75R7WviGPQiZ8W2YzeLCWqV42AnSSN7w7P9ApYJNis2OuAle54zAOLtTpDYhh9R8ek5s",
-        "description": "Exceeds maximum length of 88 characters"
+        "value": "a7PzUGxYlpvKLYXthhNDDkOEZ4CgXWFSy7ZRnQsPHoBljHS4R2i7YSbFltD5JNrJDmGAyJXfRn9vI1td8hET6Ber7",
+        "description": "Raw data exceeds maximum length of 88 characters"
       },
-      "invalid_length_indicator": {
-        "value": "089I3WeGlidjMOETVaGuaJOh2yXqHYqmtM0Q2tzocWiPCEpO9aoPVxLoWsuISkFEDKMPLUjs9hCdU1Alykv8pXIelVu",
-        "description": "Length indicator doesn't match actual data length"
-      },
-      "missing_length_indicator": {
-        "value": "I3WeGlidjMOETVaGuaJOh2yXqHYqmtM0Q2tzocWiPCEpO9aoPVxLoWsuISkFEDKMPLUjs9hCdU1Alykv8pXIelVu",
-        "description": "Missing length indicator"
-      },
-      "zero_length": {
-        "value": "000",
-        "description": "Zero length indicator"
+      "invalid_empty": {
+        "value": "",
+        "description": "Empty raw data"
       }
     },
     "validationRules": {
       "maxLength": 88,
       "lengthIndicatorSize": 3,
       "allowedChars": "a-zA-Z0-9",
-      "description": "Variable length up to 88 characters with lllvar length indicator"
+      "description": "Variable length up to 88 characters with lllvar length indicator",
+      "formatExample": {
+        "raw": "AJ7dj7k09mIjLFlk0ClabkXL4jE3h6CzbfIXvkReogbHvYqoE2LxIfk6K4RMdhRHL4KOqQhvDtN4Ps",
+        "formatted": "078AJ7dj7k09mIjLFlk0ClabkXL4jE3h6CzbfIXvkReogbHvYqoE2LxIfk6K4RMdhRHL4KOqQhvDtN4Ps",
+        "explanation": "Length indicator '078' + raw data 'AJ7dj7k09mIjLFlk0ClabkXL4jE3h6CzbfIXvkReogbHvYqoE2LxIfk6K4RMdhRHL4KOqQhvDtN4Ps'"
+      }
     },
-    "validExample": "030OdaSvlyQavCPbUM9D1D5HV7fRuYE3O"
+    "validExampleRaw": "AJ7dj7k09mIjLFlk0ClabkXL4jE3h6CzbfIXvkReogbHvYqoE2LxIfk6K4RMdhRHL4KOqQhvDtN4Ps",
+    "validExample": "078AJ7dj7k09mIjLFlk0ClabkXL4jE3h6CzbfIXvkReogbHvYqoE2LxIfk6K4RMdhRHL4KOqQhvDtN4Ps"
   },
   "47": {
     "name": "Additional Data National",
@@ -1492,33 +1478,31 @@
     "notes": "Mainly used for 3DS authentication values. Ignore for MVP unless 3DS is supported.",
     "testCases": {
       "invalid_special_chars": {
-        "value": "/\"(:|\\-):}`$;#$+<+%'?~>%\\!>'(*');(#\"-^[&^(,.=?]-`!]`^],^;`\".&~-#{~)^~_$!~-$-%/:-%|<^(!@<+~\",!_\\=-%[>",
+        "value": "&>^;{#+:).(=?=;.:_/(\\}_|!!$&@\"{!<*#{-]:!+${*,++=#+=[})|:`]\"['+$\\_).}\\-@<$*]@__:!-(/!{?^]%/^.~-.=<&\\$",
         "description": "Contains invalid special characters"
       },
       "invalid_length_exceed_max": {
-        "value": "2UxHZWu5mnCqRUd9443RFaBKsCSwWkBBCnUiwRaewTV6pZyDlHsPxh9kLPBR8M5oBI0pXRPCTzOPT4VPuchfi5BlJoWXYi7ktmeto",
-        "description": "Exceeds maximum length of 100 characters"
+        "value": "WNLL0tFYTnTnY6bOkkHKh7owEVOu2OEHWc1y470aT833Auc6n4yyFPkgqYWLxfxmJ92XI6OZvjESF9eGvaNARALCURhj2INh3ueKK",
+        "description": "Raw data exceeds maximum length of 100 characters"
       },
-      "invalid_length_indicator": {
-        "value": "101MLpp7L4mzqleuHJNkrOFLxD6dh1cE2j0QjLNsc36COEwPC0ItiN0zw20fXEfK1ujWCRvaRuK47dybzXQf0HejCHQcntziycog9vW",
-        "description": "Length indicator doesn't match actual data length"
-      },
-      "missing_length_indicator": {
-        "value": "MLpp7L4mzqleuHJNkrOFLxD6dh1cE2j0QjLNsc36COEwPC0ItiN0zw20fXEfK1ujWCRvaRuK47dybzXQf0HejCHQcntziycog9vW",
-        "description": "Missing length indicator"
-      },
-      "zero_length": {
-        "value": "000",
-        "description": "Zero length indicator"
+      "invalid_empty": {
+        "value": "",
+        "description": "Empty raw data"
       }
     },
     "validationRules": {
       "maxLength": 100,
       "lengthIndicatorSize": 3,
       "allowedChars": "a-zA-Z0-9",
-      "description": "Variable length up to 100 characters with lllvar length indicator"
+      "description": "Variable length up to 100 characters with lllvar length indicator",
+      "formatExample": {
+        "raw": "DWZvGpOyvpaGhNKBAuLIqhp2RX62MdwDd8PyMsSC60fE1XBmgy09irYYFWxWLaDX7fyzVOY7Qnx8GpxBbEjIfSwMTsfPrCTOLYdC",
+        "formatted": "100DWZvGpOyvpaGhNKBAuLIqhp2RX62MdwDd8PyMsSC60fE1XBmgy09irYYFWxWLaDX7fyzVOY7Qnx8GpxBbEjIfSwMTsfPrCTOLYdC",
+        "explanation": "Length indicator '100' + raw data 'DWZvGpOyvpaGhNKBAuLIqhp2RX62MdwDd8PyMsSC60fE1XBmgy09irYYFWxWLaDX7fyzVOY7Qnx8GpxBbEjIfSwMTsfPrCTOLYdC'"
+      }
     },
-    "validExample": "063PL1nFykVHAlMQOhNECmhtgDeu8XJC11o7Ymz2yRS2F8Vrc6QOFoB4lid3WVvVui"
+    "validExampleRaw": "DWZvGpOyvpaGhNKBAuLIqhp2RX62MdwDd8PyMsSC60fE1XBmgy09irYYFWxWLaDX7fyzVOY7Qnx8GpxBbEjIfSwMTsfPrCTOLYdC",
+    "validExample": "100DWZvGpOyvpaGhNKBAuLIqhp2RX62MdwDd8PyMsSC60fE1XBmgy09irYYFWxWLaDX7fyzVOY7Qnx8GpxBbEjIfSwMTsfPrCTOLYdC"
   },
   "48": {
     "name": "Institution/Merchant Name/Consumer Name",
@@ -1530,33 +1514,31 @@
     "notes": "Ignore if received as it contains unreliable consumer data.",
     "testCases": {
       "invalid_special_chars": {
-        "value": "^|*-?@@<?&^<_?~#!,/>#++~;",
+        "value": "][.\",-`_{\"/;([*[@&&\\={+#.",
         "description": "Contains invalid special characters"
       },
       "invalid_length_exceed_max": {
-        "value": "M6ozNyoOHSdl6NYEFyJR3YRawC",
-        "description": "Exceeds maximum length of 25 characters"
+        "value": "4pQb1hX4yFEBq3N3OQVIBXZPW3",
+        "description": "Raw data exceeds maximum length of 25 characters"
       },
-      "invalid_length_indicator": {
-        "value": "026nruywOBmOLnh2UydZeQgady3k",
-        "description": "Length indicator doesn't match actual data length"
-      },
-      "missing_length_indicator": {
-        "value": "nruywOBmOLnh2UydZeQgady3k",
-        "description": "Missing length indicator"
-      },
-      "zero_length": {
-        "value": "000",
-        "description": "Zero length indicator"
+      "invalid_empty": {
+        "value": "",
+        "description": "Empty raw data"
       }
     },
     "validationRules": {
       "maxLength": 25,
       "lengthIndicatorSize": 3,
       "allowedChars": "a-zA-Z0-9",
-      "description": "Variable length up to 25 characters with lllvar length indicator"
+      "description": "Variable length up to 25 characters with lllvar length indicator",
+      "formatExample": {
+        "raw": "ZNeVs",
+        "formatted": "005ZNeVs",
+        "explanation": "Length indicator '005' + raw data 'ZNeVs'"
+      }
     },
-    "validExample": "010fWNyLDhWo9"
+    "validExampleRaw": "ZNeVs",
+    "validExample": "005ZNeVs"
   },
   "49": {
     "name": "Currency Code, Transaction",
@@ -1568,19 +1550,19 @@
     "notes": "Must be USD for domestic transactions. Decline if any other currency code is received.",
     "testCases": {
       "invalid_type": {
-        "value": "CaD",
+        "value": "Khx",
         "description": "Contains non-numeric characters"
       },
       "invalid_special_chars": {
-        "value": "!>_",
+        "value": "^{[",
         "description": "Contains special characters"
       },
       "invalid_length_short": {
-        "value": "12",
+        "value": "97",
         "description": "Length shorter than required 3 characters"
       },
       "invalid_length_long": {
-        "value": "5695",
+        "value": "7533",
         "description": "Length longer than required 3 characters"
       }
     },
@@ -1589,7 +1571,7 @@
       "allowedChars": "0-9",
       "description": "Must be exactly 3 characters long with numeric characters"
     },
-    "validExample": "272"
+    "validExample": "830"
   },
   "50": {
     "name": "Currency Code, Settlement",
@@ -1601,19 +1583,19 @@
     "notes": "Not applicable for domestic transactions. Decline if received.",
     "testCases": {
       "invalid_type": {
-        "value": "JUh",
+        "value": "Ozc",
         "description": "Contains non-numeric characters"
       },
       "invalid_special_chars": {
-        "value": ">_}",
+        "value": "{}+",
         "description": "Contains special characters"
       },
       "invalid_length_short": {
-        "value": "94",
+        "value": "38",
         "description": "Length shorter than required 3 characters"
       },
       "invalid_length_long": {
-        "value": "7659",
+        "value": "0355",
         "description": "Length longer than required 3 characters"
       }
     },
@@ -1622,7 +1604,7 @@
       "allowedChars": "0-9",
       "description": "Must be exactly 3 characters long with numeric characters"
     },
-    "validExample": "008"
+    "validExample": "796"
   },
   "51": {
     "name": "Currency Code, Cardholder Billing",
@@ -1634,19 +1616,19 @@
     "notes": "Not applicable for domestic transactions. Decline if received.",
     "testCases": {
       "invalid_type": {
-        "value": "FJm",
+        "value": "aLy",
         "description": "Contains non-numeric characters"
       },
       "invalid_special_chars": {
-        "value": "&@#",
+        "value": "<$:",
         "description": "Contains special characters"
       },
       "invalid_length_short": {
-        "value": "59",
+        "value": "32",
         "description": "Length shorter than required 3 characters"
       },
       "invalid_length_long": {
-        "value": "7968",
+        "value": "8842",
         "description": "Length longer than required 3 characters"
       }
     },
@@ -1655,7 +1637,7 @@
       "allowedChars": "0-9",
       "description": "Must be exactly 3 characters long with numeric characters"
     },
-    "validExample": "401"
+    "validExample": "880"
   },
   "52": {
     "name": "Personal Identification Number (PIN) Data",
@@ -1667,19 +1649,19 @@
     "notes": "Ignored in production unless certification requires it. Send to C-Box for validation during certification.",
     "testCases": {
       "invalid_type": {
-        "value": "zbPBC0iHliH7YQnE6dKj1MuaYVwzlq0xr5DCwXycmu0qPZT4BZxYOSWYR2fbTknN",
+        "value": "PSqTx4cxXNAlyz2jTtSaOJqGhRRSOUUuxBGx2GZsnqYspYaC5xGNArvNbyxhk48U",
         "description": "Contains non-binary characters"
       },
       "invalid_binary_chars": {
-        "value": "2373259273487425595836222436722249553965786383465563543645636785",
+        "value": "7264269796727628483452744994558553598689554627655435389633474392",
         "description": "Contains non-binary digits (not 0 or 1)"
       },
       "invalid_length_short": {
-        "value": "M69jfO7zivZEydZUmgYcsM0snyggyQoh7pzN2ru1t1VG7yFd76nHDl4bzbIH35y",
+        "value": "3VrbwmyiUMuVwxsBMfL1U3ElWAAj3OxIbr7Zqkg5X1uET0B9itkRZ31XITrgLn7",
         "description": "Length shorter than required 64 characters"
       },
       "invalid_length_long": {
-        "value": "EEsJ4VZYa8ZyVTCK4Qs5FWSGvDQ90Y6tpX9TsmpHxESbI49XERnnE4JL6duVP88gH",
+        "value": "nvkbHn9EGGTk4HHo30d24pmh5LwxCsYwnpbghq2F0PISPfOCe4VER89Mo659ix8sK",
         "description": "Length longer than required 64 characters"
       }
     },
@@ -1688,7 +1670,7 @@
       "allowedChars": "0-1",
       "description": "Must be exactly 64 characters long with binary characters"
     },
-    "validExample": "1001100010011000111100000100000011011000001010011111110100001110"
+    "validExample": "0111000100011110011000001100001111101111011101101000001001110000"
   },
   "54": {
     "name": "Additional Amounts",
@@ -1700,33 +1682,31 @@
     "notes": "Used for healthcare transactions. Pass to auth engine if received.",
     "testCases": {
       "invalid_special_chars": {
-        "value": "~}?,/_><|?\"+,_{;:^{,]).[<=+>@^!+//[<@.#<(@+>>$.~._|+>++@$,!}$$>_-~*'=<,'~+\\#_+&-:|\\_~!%`;+(%|\\[?:`|;/[)'^`!&#=:);)@_;,[)[?=<)/]:'?}`!!*[~.#-!}[$&',:^+.&#:+|<\\=}){-**>(,%%\\>:!\\/=,-^!,]^*\"=~.;%-:;@;[[<**~^:`|@=}<&-\\<'_`$]*@^);{_`\"`/~!-)$.:{:=",
+        "value": "({>=>/*;,-%+'_~)@~{{%.$*,\\*,//)]))|\":-{-`!{}^=_!=]\"!}~|`!;&{{%'??}_+#%#@{*\\'`/:(!:^}*#?%`-!'_[-!>[.(;:~=@-,]_%,](+';\\$.!}>]/|&}}{$!!];.:,$|{~<[[),`}'_,%#^(\\#}<&;'=-%<@\"%@_+/;+.:]\\/.%\\:+*&(;'_**(#/[};\\/_%~|'}$\".:%[<<@%$.*-%+['<)_?;}/}({(=,&]",
         "description": "Contains invalid special characters"
       },
       "invalid_length_exceed_max": {
-        "value": "Qbnb6oYIYQTpLQGsTlS1WuplmErr3MtCNwZnWzbI8vgCJQXbio0Sqpm3zTpXO9BIEocOC5TwObphfulFe5r1UyOBZfwkN264zOHdyBgRBxL13UELkqhoFWrwjsK6LMSV1msSFyx4uyHE3T0ejj5Vmlea9UfaeNsaU62ppb7apmLFyvXVGSequz3VisjwtpWj0zNqQ6gLRpAEvZzR5lLmDOwae5e238E9u1Zqc6AZp0QwsGmkM",
-        "description": "Exceeds maximum length of 240 characters"
+        "value": "DQEUpGglXWpEOgTjEjRzwyhJdbEewnO4vEZN7U8w9jZhRILPaT8YsPggxu2LNyeuQVVc6qQ5fA9yIiBPj8r8umIn3oqh7qZLMK9OKErMmfST81yyds0RwpW1yjuzUfERqwsYfFwLIJgSFDL9mcL4WHoY5QDlj5ftNEVEixIpWOLgwS3MM8ALsHKul6emIKTUbJPos1KiU9pyIZe5RUPbcTvHa1zUlowf1MxsCbM4T3bHKfrU7",
+        "description": "Raw data exceeds maximum length of 240 characters"
       },
-      "invalid_length_indicator": {
-        "value": "241gVv7ItN4nHuAwQ6M9w2Qau00vLfWcKV5a2j4zzwEXkTJtCkYGhim4uFUGVPWW38EehZ5kTWM3CAdgcMFAlCziAhsV4hSOoJp4Wu4krplG7Kpuw0nDpKASYjov5G0S2jeZsFc4ran1KEXK1Se9kv2pEo8BpJ79kKCrmlMfXLXjvtn5YLap6VEbzGXd8u3k9VF5BHD4h5GkeZVzCncgTlWMJdv32GhBrW3vsFqQ0C8fXuuRYLa",
-        "description": "Length indicator doesn't match actual data length"
-      },
-      "missing_length_indicator": {
-        "value": "gVv7ItN4nHuAwQ6M9w2Qau00vLfWcKV5a2j4zzwEXkTJtCkYGhim4uFUGVPWW38EehZ5kTWM3CAdgcMFAlCziAhsV4hSOoJp4Wu4krplG7Kpuw0nDpKASYjov5G0S2jeZsFc4ran1KEXK1Se9kv2pEo8BpJ79kKCrmlMfXLXjvtn5YLap6VEbzGXd8u3k9VF5BHD4h5GkeZVzCncgTlWMJdv32GhBrW3vsFqQ0C8fXuuRYLa",
-        "description": "Missing length indicator"
-      },
-      "zero_length": {
-        "value": "000",
-        "description": "Zero length indicator"
+      "invalid_empty": {
+        "value": "",
+        "description": "Empty raw data"
       }
     },
     "validationRules": {
       "maxLength": 240,
       "lengthIndicatorSize": 3,
       "allowedChars": "a-zA-Z0-9",
-      "description": "Variable length up to 240 characters with lllvar length indicator"
+      "description": "Variable length up to 240 characters with lllvar length indicator",
+      "formatExample": {
+        "raw": "3EVithDu4YDB9QL5BmJu6HQjqpgZ5SrBqlnSQdR9fe3PdqOpoBBJOfeL66MfTxUoM652TkBd2gnrTvsSIQIxU8WzEqXGoq2w6xvbfXJOUit9qacsaMhHN7NOyO8BWkNUm1eW2q3qkgWmADF3rhrldeZuCm1uK1zcDZY6YS2wJ",
+        "formatted": "1693EVithDu4YDB9QL5BmJu6HQjqpgZ5SrBqlnSQdR9fe3PdqOpoBBJOfeL66MfTxUoM652TkBd2gnrTvsSIQIxU8WzEqXGoq2w6xvbfXJOUit9qacsaMhHN7NOyO8BWkNUm1eW2q3qkgWmADF3rhrldeZuCm1uK1zcDZY6YS2wJ",
+        "explanation": "Length indicator '169' + raw data '3EVithDu4YDB9QL5BmJu6HQjqpgZ5SrBqlnSQdR9fe3PdqOpoBBJOfeL66MfTxUoM652TkBd2gnrTvsSIQIxU8WzEqXGoq2w6xvbfXJOUit9qacsaMhHN7NOyO8BWkNUm1eW2q3qkgWmADF3rhrldeZuCm1uK1zcDZY6YS2wJ'"
+      }
     },
-    "validExample": "2355UKTGSvuuhWDDnts0ophfif6z5k929qchoBCEjtN1VOoS5GBfW9oqvPdRI4DSIyPLvN5YY3Mj8vYxhdELyfmYOiYZMyQkbqY3vU0hOuCcNNaCksiLvz88VCqx4KnmLyw8ZVmzW6jGgmnim39R0bVwpc8cFHTGstq0MPwIQ3Phi2wAEEBpAFrmQwJjZfzh8dVUWzee17N6DJvwulagJ6NFiTf2OqdeVc41KEp7VB0KDQ"
+    "validExampleRaw": "3EVithDu4YDB9QL5BmJu6HQjqpgZ5SrBqlnSQdR9fe3PdqOpoBBJOfeL66MfTxUoM652TkBd2gnrTvsSIQIxU8WzEqXGoq2w6xvbfXJOUit9qacsaMhHN7NOyO8BWkNUm1eW2q3qkgWmADF3rhrldeZuCm1uK1zcDZY6YS2wJ",
+    "validExample": "1693EVithDu4YDB9QL5BmJu6HQjqpgZ5SrBqlnSQdR9fe3PdqOpoBBJOfeL66MfTxUoM652TkBd2gnrTvsSIQIxU8WzEqXGoq2w6xvbfXJOUit9qacsaMhHN7NOyO8BWkNUm1eW2q3qkgWmADF3rhrldeZuCm1uK1zcDZY6YS2wJ"
   },
   "55": {
     "name": "Integrated Chip Card (ICC) Data",
@@ -1738,37 +1718,35 @@
     "notes": "Decline with error code 12 if received, as EMV transactions are not supported in MVP.",
     "testCases": {
       "invalid_type": {
-        "value": "Pa6phV3Ws4cVEnvHFjPozW5uO2KLDV5mbsc1gqEKYn5Gn8naHr8Uv44n26eGEvFMiYV4fUrOSwbxQPU0ERIDl1MBE0xsbmNmCD8YnUUq4N68Drw32sdO8vTnnQ8XGQrFr32veVElRtdtWnoLM3YR4zLXnOjQ0ZSHBQ8XDYoLkQL7y8j3jYTwoC3VdH9a9Hy51rI626SveqlUCmFwxgFbnWXWCNZgsLMygHPieWRSfMRP18XVWoWguYEUFe9TE1L",
+        "value": "4YhpQCa7CecMAuO8eb2wC1Du0NrirtoGpk3ne6cdzpOiGX0wcY2VsjNLAVzsi2hRw6U4D61hVEdYwpcQemaaitXthblt1rQIRYyRDuQHKVuENUwDzIHlX8S3NWsxMbNh6fifP1SeK8C9MTBo7h9mDZifG0YNwDFV4OsI1SYFGpn9lbuaWdzU2zMgsZiWzU0UxpXeuXX7U2dWY2H24MLuW1QXnxIiKSMbQyhqzbulAVLrWY0Pcj3UEWocYKvRKeO",
         "description": "Contains non-binary characters"
       },
       "invalid_binary_chars": {
-        "value": "768936459869248625387683993553375936655333559558279793827484364846373546266785894226648846554955636649456458263674564663737689789234462435396269726957964862824944444897459547898254686522585725972366285336226923826343532245567388464479885894845248699666777",
+        "value": "346788392369492499433248464497836856336884454568564929389975522385385647468729272957975375332766434856744632223674333858834724883883223344925289986499892829769555453545449659239527743555236335435652565366762987222763442828579633645547386428539874945294795",
         "description": "Contains non-binary digits (not 0 or 1)"
       },
       "invalid_length_exceed_max": {
-        "value": "aL60uo0L9rYDg4Thd0jv8J0HSF4biFYOcdcydid8sUqbvWuwXI4BkJrGqWFiQrG249e672xBnhhmMvmbghJet2ovaLKO1PsdvkOek4J4ur2KXUvcONWLfyfo5RU6pbYdv4it6Q4hHzx4O2UDe7XeJAb0CziKvI0N1bAlJ5ku9Z4UP0mcNoXYadxwlHrRe09KTHjQ64uFpBbtAWwpHTIPlQkjqf1zUb6sTVV3WidfGiDYAg9Rsapgarbgj8k2D6cr",
-        "description": "Exceeds maximum length of 255 characters"
+        "value": "HGIUxHg8Oz6ZwRkx15J7dCwd7MJnnlupMNKxLK5sDoZCeUVNfCdjOCmgKJgiCbfngacvb0R0XKAByNwwtqeC9XJPQ3CETu9oncQNcKx1QAd0EtcDlUvBWMVOkmO44wmv5Mbg4mPSo0Uv6SuuYySIeThYj4yaYZZOE85okWs8zW1R3MAJrMOrsnTOAR0bBtTOS3Ux85yzaDofm4J8lRMiRBWWvHBYeGSn3zdiYGAhjBYSqrsVzVTkAtr0rTdFzHqT",
+        "description": "Raw data exceeds maximum length of 255 characters"
       },
-      "invalid_length_indicator": {
-        "value": "256cKeJrSQhwTZTih7pB4su1IC9AAAKQh7d8BgGolW1E0EEgKayxYRO7AlLLuAIglME7efqnIvf4Zu5IxUVmaGFhUduKWefXXjF1bs4jdAsQia44rFo2MLbRKJm68mFQfRMIt8AoqDAt1zEr14R1x3izY7J9sZASNteXV3tr1NnKnpBu7mIDnWeInIx92lLff8NETe0cE6OvvtyPIMXmPqOGYSHU3094xRAtj0D7O5UMB3WwwkPxhxmOek09Gihkuz",
-        "description": "Length indicator doesn't match actual data length"
-      },
-      "missing_length_indicator": {
-        "value": "cKeJrSQhwTZTih7pB4su1IC9AAAKQh7d8BgGolW1E0EEgKayxYRO7AlLLuAIglME7efqnIvf4Zu5IxUVmaGFhUduKWefXXjF1bs4jdAsQia44rFo2MLbRKJm68mFQfRMIt8AoqDAt1zEr14R1x3izY7J9sZASNteXV3tr1NnKnpBu7mIDnWeInIx92lLff8NETe0cE6OvvtyPIMXmPqOGYSHU3094xRAtj0D7O5UMB3WwwkPxhxmOek09Gihkuz",
-        "description": "Missing length indicator"
-      },
-      "zero_length": {
-        "value": "000",
-        "description": "Zero length indicator"
+      "invalid_empty": {
+        "value": "",
+        "description": "Empty raw data"
       }
     },
     "validationRules": {
       "maxLength": 255,
       "lengthIndicatorSize": 3,
       "allowedChars": "0-1",
-      "description": "Variable length up to 255 characters with lllvar length indicator"
+      "description": "Variable length up to 255 characters with lllvar length indicator",
+      "formatExample": {
+        "raw": "XrArBHg4g1wStER6pkOlnt4JVESipJ4quWDuXsYJqzKZNJMPM815VDwMxR2kmwW24NhQyMgf01vMUGab7ORyd37FJCyfk4BsnBrF6szvQCY3mjJYqiF38JZxNcTonVT8MwbpZhXITRVh4Kx",
+        "formatted": "143XrArBHg4g1wStER6pkOlnt4JVESipJ4quWDuXsYJqzKZNJMPM815VDwMxR2kmwW24NhQyMgf01vMUGab7ORyd37FJCyfk4BsnBrF6szvQCY3mjJYqiF38JZxNcTonVT8MwbpZhXITRVh4Kx",
+        "explanation": "Length indicator '143' + raw data 'XrArBHg4g1wStER6pkOlnt4JVESipJ4quWDuXsYJqzKZNJMPM815VDwMxR2kmwW24NhQyMgf01vMUGab7ORyd37FJCyfk4BsnBrF6szvQCY3mjJYqiF38JZxNcTonVT8MwbpZhXITRVh4Kx'"
+      }
     },
-    "validExample": "163LKMT24vSwnxRmIZbPIxr4X8yUByXZLwy6rqeIsCNfJvypBhFTqICAA3Gao680uE7q3Eb9l5zgBMYGPgUPLGfmMFzwG1LRG6JmhOCkk0mCvGn84F3iapJS02JxYlYfQ9QoDvdz7lKK3mpOc4KxwjPoLGnmWaPl4T7Opl"
+    "validExampleRaw": "XrArBHg4g1wStER6pkOlnt4JVESipJ4quWDuXsYJqzKZNJMPM815VDwMxR2kmwW24NhQyMgf01vMUGab7ORyd37FJCyfk4BsnBrF6szvQCY3mjJYqiF38JZxNcTonVT8MwbpZhXITRVh4Kx",
+    "validExample": "143XrArBHg4g1wStER6pkOlnt4JVESipJ4quWDuXsYJqzKZNJMPM815VDwMxR2kmwW24NhQyMgf01vMUGab7ORyd37FJCyfk4BsnBrF6szvQCY3mjJYqiF38JZxNcTonVT8MwbpZhXITRVh4Kx"
   },
   "57": {
     "name": "Authorization Life Cycle",
@@ -1780,33 +1758,31 @@
     "notes": "Critical for fraud analysis. Values: 200 - Previous Auth Completion, 600 - PreAuth completion.",
     "testCases": {
       "invalid_special_chars": {
-        "value": "<'^",
+        "value": "*:{",
         "description": "Contains invalid special characters"
       },
       "invalid_length_exceed_max": {
-        "value": "mxpy",
-        "description": "Exceeds maximum length of 3 characters"
+        "value": "GWzQ",
+        "description": "Raw data exceeds maximum length of 3 characters"
       },
-      "invalid_length_indicator": {
-        "value": "004m4p",
-        "description": "Length indicator doesn't match actual data length"
-      },
-      "missing_length_indicator": {
-        "value": "m4p",
-        "description": "Missing length indicator"
-      },
-      "zero_length": {
-        "value": "000",
-        "description": "Zero length indicator"
+      "invalid_empty": {
+        "value": "",
+        "description": "Empty raw data"
       }
     },
     "validationRules": {
       "maxLength": 3,
       "lengthIndicatorSize": 3,
       "allowedChars": "a-zA-Z0-9",
-      "description": "Variable length up to 3 characters with lllvar length indicator"
+      "description": "Variable length up to 3 characters with lllvar length indicator",
+      "formatExample": {
+        "raw": "kRw",
+        "formatted": "003kRw",
+        "explanation": "Length indicator '003' + raw data 'kRw'"
+      }
     },
-    "validExample": "002EB"
+    "validExampleRaw": "kRw",
+    "validExample": "003kRw"
   },
   "58": {
     "name": "National Point-of-Service Condition Code",
@@ -1818,33 +1794,31 @@
     "notes": "Provides details about transaction conditions. Subfields include Terminal Class, Presentation Type, Security Condition, etc.",
     "testCases": {
       "invalid_special_chars": {
-        "value": "'^@!:^~/^\\#&-].**.~;?\"_;'$\"%:~",
+        "value": "{;>]&.}&^>&{@$?$`,?}|=!^;-%<_[",
         "description": "Contains invalid special characters"
       },
       "invalid_length_exceed_max": {
-        "value": "DguqcfW9bmzXbjIzCC6EE6LPgNeQy2J",
-        "description": "Exceeds maximum length of 30 characters"
+        "value": "2zFyEAzAv0Cq69MM22uEQCFwcnNWDel",
+        "description": "Raw data exceeds maximum length of 30 characters"
       },
-      "invalid_length_indicator": {
-        "value": "031mylBgXoJkdhzxOk9L5GjPUbNth4Lbc",
-        "description": "Length indicator doesn't match actual data length"
-      },
-      "missing_length_indicator": {
-        "value": "mylBgXoJkdhzxOk9L5GjPUbNth4Lbc",
-        "description": "Missing length indicator"
-      },
-      "zero_length": {
-        "value": "000",
-        "description": "Zero length indicator"
+      "invalid_empty": {
+        "value": "",
+        "description": "Empty raw data"
       }
     },
     "validationRules": {
       "maxLength": 30,
       "lengthIndicatorSize": 3,
       "allowedChars": "a-zA-Z0-9",
-      "description": "Variable length up to 30 characters with lllvar length indicator"
+      "description": "Variable length up to 30 characters with lllvar length indicator",
+      "formatExample": {
+        "raw": "M3aVDtLNNoWZ1hNfZiVBoXCOxu",
+        "formatted": "026M3aVDtLNNoWZ1hNfZiVBoXCOxu",
+        "explanation": "Length indicator '026' + raw data 'M3aVDtLNNoWZ1hNfZiVBoXCOxu'"
+      }
     },
-    "validExample": "029QFN6H480m1aEMWwtnYLsfePgytuAE"
+    "validExampleRaw": "M3aVDtLNNoWZ1hNfZiVBoXCOxu",
+    "validExample": "026M3aVDtLNNoWZ1hNfZiVBoXCOxu"
   },
   "59": {
     "name": "National Point-of-Service Geographical Data",
@@ -1856,33 +1830,31 @@
     "notes": "Includes State/Region Code, County Code, Postal Service Code, and Country Code. Configurable to be passed.",
     "testCases": {
       "invalid_special_chars": {
-        "value": "\\!}^,>?(@^@'$,+,/",
+        "value": "--+?>@;&`\"}|\")+.$",
         "description": "Contains invalid special characters"
       },
       "invalid_length_exceed_max": {
-        "value": "8cNYjfzEpdLIWZFaW5",
-        "description": "Exceeds maximum length of 17 characters"
+        "value": "NwaNC5YSETB6FXtLRi",
+        "description": "Raw data exceeds maximum length of 17 characters"
       },
-      "invalid_length_indicator": {
-        "value": "018f30VMGHa0I1kWkhRd",
-        "description": "Length indicator doesn't match actual data length"
-      },
-      "missing_length_indicator": {
-        "value": "f30VMGHa0I1kWkhRd",
-        "description": "Missing length indicator"
-      },
-      "zero_length": {
-        "value": "000",
-        "description": "Zero length indicator"
+      "invalid_empty": {
+        "value": "",
+        "description": "Empty raw data"
       }
     },
     "validationRules": {
       "maxLength": 17,
       "lengthIndicatorSize": 3,
       "allowedChars": "a-zA-Z0-9",
-      "description": "Variable length up to 17 characters with lllvar length indicator"
+      "description": "Variable length up to 17 characters with lllvar length indicator",
+      "formatExample": {
+        "raw": "KxIHrzHvvr3UhRMXu",
+        "formatted": "017KxIHrzHvvr3UhRMXu",
+        "explanation": "Length indicator '017' + raw data 'KxIHrzHvvr3UhRMXu'"
+      }
     },
-    "validExample": "010rxET8hDlxH"
+    "validExampleRaw": "KxIHrzHvvr3UhRMXu",
+    "validExample": "017KxIHrzHvvr3UhRMXu"
   },
   "60": {
     "name": "Advice/Reversal Reason Code",
@@ -1894,33 +1866,31 @@
     "notes": "Identifies the reason for reversal or advice. Byte map values: 80 - Reversal, 40 - Advice, C0 - Reversal of Advice.",
     "testCases": {
       "invalid_special_chars": {
-        "value": "*,[],!",
+        "value": "+~;$%[",
         "description": "Contains invalid special characters"
       },
       "invalid_length_exceed_max": {
-        "value": "URa3rnf",
-        "description": "Exceeds maximum length of 6 characters"
+        "value": "XIM4sps",
+        "description": "Raw data exceeds maximum length of 6 characters"
       },
-      "invalid_length_indicator": {
-        "value": "007GdHlh8",
-        "description": "Length indicator doesn't match actual data length"
-      },
-      "missing_length_indicator": {
-        "value": "GdHlh8",
-        "description": "Missing length indicator"
-      },
-      "zero_length": {
-        "value": "000",
-        "description": "Zero length indicator"
+      "invalid_empty": {
+        "value": "",
+        "description": "Empty raw data"
       }
     },
     "validationRules": {
       "maxLength": 6,
       "lengthIndicatorSize": 3,
       "allowedChars": "a-zA-Z0-9",
-      "description": "Variable length up to 6 characters with lllvar length indicator"
+      "description": "Variable length up to 6 characters with lllvar length indicator",
+      "formatExample": {
+        "raw": "ou272Z",
+        "formatted": "006ou272Z",
+        "explanation": "Length indicator '006' + raw data 'ou272Z'"
+      }
     },
-    "validExample": "003LZb"
+    "validExampleRaw": "ou272Z",
+    "validExample": "006ou272Z"
   },
   "61": {
     "name": "Acquirer Transport Data",
@@ -1932,33 +1902,31 @@
     "notes": "Echoed to the acquirer in the response. Not passed to the issuer.",
     "testCases": {
       "invalid_special_chars": {
-        "value": ";'|+\\:)\"]|'>#*\\<++$^~$}.!~^{^*{]*}%$[$'*),$|<.;@>!)\"++&=$/*\"$-=]%[']?,))|-{;``#^~,!($];+()}':\"^^=\\*%",
+        "value": "<<^(+=%-?\":/,`.>_;]-}~`<</|$?[`$#~_-#+(>.`*^-;*][?!$(^=+|~,~+[].^||=]>#{*=!&%^||\"<~\"^|:.'[/-?^&-<-:)",
         "description": "Contains invalid special characters"
       },
       "invalid_length_exceed_max": {
-        "value": "DxrFe5oczZPinIpgo3JdTpDWCpKheqvQwHvgBHYjJTR8DCI7CZjuTkFqcW0WeTNBAxgm21vnXYLIHB5WPWtq5wMu0I11aCCzDFbwr",
-        "description": "Exceeds maximum length of 100 characters"
+        "value": "QMlBJkSeawt91OeOYENAgaWnbX7UhMp7TLcWkiDc738FmlIeMqBxJPd3vavyOonz0b7xEeSWyaG6lej7ZprlKD66N5E0clUVZhYQi",
+        "description": "Raw data exceeds maximum length of 100 characters"
       },
-      "invalid_length_indicator": {
-        "value": "101IkZlBNr4NabTTb7W0S6s1wDjTSqpxAOSdbQbpMn076NZCYpLHbBppIej0ShceeHyNDNSRRrBqrxmm0zkqfopnmgt5ESu8ZZIXzZN",
-        "description": "Length indicator doesn't match actual data length"
-      },
-      "missing_length_indicator": {
-        "value": "IkZlBNr4NabTTb7W0S6s1wDjTSqpxAOSdbQbpMn076NZCYpLHbBppIej0ShceeHyNDNSRRrBqrxmm0zkqfopnmgt5ESu8ZZIXzZN",
-        "description": "Missing length indicator"
-      },
-      "zero_length": {
-        "value": "000",
-        "description": "Zero length indicator"
+      "invalid_empty": {
+        "value": "",
+        "description": "Empty raw data"
       }
     },
     "validationRules": {
       "maxLength": 100,
       "lengthIndicatorSize": 3,
       "allowedChars": "a-zA-Z0-9",
-      "description": "Variable length up to 100 characters with lllvar length indicator"
+      "description": "Variable length up to 100 characters with lllvar length indicator",
+      "formatExample": {
+        "raw": "nCEBp6uJt5Tg4jjg6gdbj4WhFeKDz0TBb87BWo9S5HvOuxvDRfJ0p1EbSkDOw6OQZN4wGDo7XCAznIQR6ktoaQEmRt",
+        "formatted": "090nCEBp6uJt5Tg4jjg6gdbj4WhFeKDz0TBb87BWo9S5HvOuxvDRfJ0p1EbSkDOw6OQZN4wGDo7XCAznIQR6ktoaQEmRt",
+        "explanation": "Length indicator '090' + raw data 'nCEBp6uJt5Tg4jjg6gdbj4WhFeKDz0TBb87BWo9S5HvOuxvDRfJ0p1EbSkDOw6OQZN4wGDo7XCAznIQR6ktoaQEmRt'"
+      }
     },
-    "validExample": "100vCSU8tmyDhAOy25r16kGp6ob0kF2MDyVNuIKoQ6VG67PxKZTgP4j0HNLR68YMC3dO1vNr2VDm564FdXROqdFLmjppQeWiQ2Nrlik"
+    "validExampleRaw": "nCEBp6uJt5Tg4jjg6gdbj4WhFeKDz0TBb87BWo9S5HvOuxvDRfJ0p1EbSkDOw6OQZN4wGDo7XCAznIQR6ktoaQEmRt",
+    "validExample": "090nCEBp6uJt5Tg4jjg6gdbj4WhFeKDz0TBb87BWo9S5HvOuxvDRfJ0p1EbSkDOw6OQZN4wGDo7XCAznIQR6ktoaQEmRt"
   },
   "63": {
     "name": "Mastercard Networks Exchange Data",
@@ -1970,33 +1938,31 @@
     "notes": "Used for least cost routing. Ignore for MVP.",
     "testCases": {
       "invalid_special_chars": {
-        "value": "'#-&:~&]{*&*^>+)+^=<|*\"|[/_}]-%]<],-]&#%',+@=`_}*:",
+        "value": "'[)\"*'>]{*|:#-!$}`})/_:}_+[!|!_?{:!+\\%':(<}\"!@*_::",
         "description": "Contains invalid special characters"
       },
       "invalid_length_exceed_max": {
-        "value": "fqBOc0jLqIGIIUVXgpJduSMpZcDUtD2V0vtqqNgP8hxPXuKLO7U",
-        "description": "Exceeds maximum length of 50 characters"
+        "value": "pd8qzSllcCbBudqNsIWOR8ZR7MxQpIQ4pbY37ODgnndIR47AnP5",
+        "description": "Raw data exceeds maximum length of 50 characters"
       },
-      "invalid_length_indicator": {
-        "value": "051ZDlBbR7vKcNnrw0XqYbLiGHAHAIp4KBLuoJ32GQGXZ2Zpmpc80",
-        "description": "Length indicator doesn't match actual data length"
-      },
-      "missing_length_indicator": {
-        "value": "ZDlBbR7vKcNnrw0XqYbLiGHAHAIp4KBLuoJ32GQGXZ2Zpmpc80",
-        "description": "Missing length indicator"
-      },
-      "zero_length": {
-        "value": "000",
-        "description": "Zero length indicator"
+      "invalid_empty": {
+        "value": "",
+        "description": "Empty raw data"
       }
     },
     "validationRules": {
       "maxLength": 50,
       "lengthIndicatorSize": 3,
       "allowedChars": "a-zA-Z0-9",
-      "description": "Variable length up to 50 characters with lllvar length indicator"
+      "description": "Variable length up to 50 characters with lllvar length indicator",
+      "formatExample": {
+        "raw": "gAb4uOwhRqmJzfr3VKJlO68NFaWjAF4vrZ7DSnmNXiXvSWA8",
+        "formatted": "048gAb4uOwhRqmJzfr3VKJlO68NFaWjAF4vrZ7DSnmNXiXvSWA8",
+        "explanation": "Length indicator '048' + raw data 'gAb4uOwhRqmJzfr3VKJlO68NFaWjAF4vrZ7DSnmNXiXvSWA8'"
+      }
     },
-    "validExample": "024EBk7AtiXw5sg5AcZumygyiTf"
+    "validExampleRaw": "gAb4uOwhRqmJzfr3VKJlO68NFaWjAF4vrZ7DSnmNXiXvSWA8",
+    "validExample": "048gAb4uOwhRqmJzfr3VKJlO68NFaWjAF4vrZ7DSnmNXiXvSWA8"
   },
   "63.1": {
     "name": "Pseudo-Terminal",
@@ -2008,15 +1974,15 @@
     "notes": "Required if multiple pseudo terminals are needed.",
     "testCases": {
       "invalid_special_chars": {
-        "value": "-#&^;-",
+        "value": "-)@`{$",
         "description": "Contains invalid special characters"
       },
       "invalid_length_short": {
-        "value": "YUxYa",
+        "value": "njwpD",
         "description": "Length shorter than required 6 characters"
       },
       "invalid_length_long": {
-        "value": "Tn49Utg",
+        "value": "SqeMr18",
         "description": "Length longer than required 6 characters"
       }
     },
@@ -2025,7 +1991,7 @@
       "allowedChars": "a-zA-Z0-9",
       "description": "Must be exactly 6 characters long with alphanumeric characters"
     },
-    "validExample": "W06dd1"
+    "validExample": "4pn0Qf"
   },
   "63.2": {
     "name": "Issuer Network ID",
@@ -2037,15 +2003,15 @@
     "notes": "Required for direct routing.",
     "testCases": {
       "invalid_special_chars": {
-        "value": "{`_",
+        "value": "'/{",
         "description": "Contains invalid special characters"
       },
       "invalid_length_short": {
-        "value": "dT",
+        "value": "0C",
         "description": "Length shorter than required 3 characters"
       },
       "invalid_length_long": {
-        "value": "AKxR",
+        "value": "a9ds",
         "description": "Length longer than required 3 characters"
       }
     },
@@ -2054,7 +2020,7 @@
       "allowedChars": "a-zA-Z0-9",
       "description": "Must be exactly 3 characters long with alphanumeric characters"
     },
-    "validExample": "sPs"
+    "validExample": "LAc"
   },
   "63.3": {
     "name": "Acquirer Network ID",
@@ -2066,15 +2032,15 @@
     "notes": "Sent if the issuer wants to know which network acquired the transaction.",
     "testCases": {
       "invalid_special_chars": {
-        "value": "<!\\",
+        "value": "&%~",
         "description": "Contains invalid special characters"
       },
       "invalid_length_short": {
-        "value": "Gs",
+        "value": "pR",
         "description": "Length shorter than required 3 characters"
       },
       "invalid_length_long": {
-        "value": "yUCx",
+        "value": "OtUj",
         "description": "Length longer than required 3 characters"
       }
     },
@@ -2083,7 +2049,7 @@
       "allowedChars": "a-zA-Z0-9",
       "description": "Must be exactly 3 characters long with alphanumeric characters"
     },
-    "validExample": "hoZ"
+    "validExample": "DaB"
   },
   "63.4": {
     "name": "Processor ID",
@@ -2095,15 +2061,15 @@
     "notes": "Sent if the issuer wants to know which processor acquired the transaction.",
     "testCases": {
       "invalid_special_chars": {
-        "value": "#*_]>\\",
+        "value": "}-'~)\"",
         "description": "Contains invalid special characters"
       },
       "invalid_length_short": {
-        "value": "hjirT",
+        "value": "dQfWz",
         "description": "Length shorter than required 6 characters"
       },
       "invalid_length_long": {
-        "value": "ytMEfFm",
+        "value": "XkakyWj",
         "description": "Length longer than required 6 characters"
       }
     },
@@ -2112,7 +2078,7 @@
       "allowedChars": "a-zA-Z0-9",
       "description": "Must be exactly 6 characters long with alphanumeric characters"
     },
-    "validExample": "EBOCgY"
+    "validExample": "jUoEki"
   },
   "63.7": {
     "name": "Processing Flags",
@@ -2124,15 +2090,15 @@
     "notes": "Sent if the issuer wants to know which processor acquired the transaction.",
     "testCases": {
       "invalid_special_chars": {
-        "value": "+(?:>",
+        "value": "#}/}|",
         "description": "Contains invalid special characters"
       },
       "invalid_length_short": {
-        "value": "Tr8N",
+        "value": "aRYe",
         "description": "Length shorter than required 5 characters"
       },
       "invalid_length_long": {
-        "value": "5s2tHg",
+        "value": "dsaAXz",
         "description": "Length longer than required 5 characters"
       }
     },
@@ -2141,7 +2107,7 @@
       "allowedChars": "a-zA-Z0-9",
       "description": "Must be exactly 5 characters long with alphanumeric characters"
     },
-    "validExample": "NbeRD"
+    "validExample": "WifeW"
   },
   "67": {
     "name": "Extended Payment Code",
@@ -2153,19 +2119,19 @@
     "notes": "Sent if the issuer wants to know which processor acquired the transaction.",
     "testCases": {
       "invalid_type": {
-        "value": "CF",
+        "value": "Qs",
         "description": "Contains non-numeric characters"
       },
       "invalid_special_chars": {
-        "value": "('",
+        "value": "}$",
         "description": "Contains special characters"
       },
       "invalid_length_short": {
-        "value": "5",
+        "value": "6",
         "description": "Length shorter than required 2 characters"
       },
       "invalid_length_long": {
-        "value": "515",
+        "value": "197",
         "description": "Length longer than required 2 characters"
       }
     },
@@ -2174,7 +2140,7 @@
       "allowedChars": "0-9",
       "description": "Must be exactly 2 characters long with numeric characters"
     },
-    "validExample": "31"
+    "validExample": "58"
   },
   "90": {
     "name": "Original Data Elements",
@@ -2186,19 +2152,19 @@
     "notes": "Required on inbound messages to Mastercard Networks Exchange. The remaining subelements may be zero-filled. Outbound from Mastercard Networks Exchange, the original message type is sent. Original system trace audit number and local date and time are sent if available.",
     "testCases": {
       "invalid_type": {
-        "value": "uDZJzYsrXCYGgbbroVJCAkUhJbnRmHpqdZnYMerXfU",
+        "value": "fTFYSrSqskScfMvvmTXuvUJEpWKfVRdeRpspbsEwkx",
         "description": "Contains non-numeric characters"
       },
       "invalid_special_chars": {
-        "value": "`^.]->+,|;,|\\-{*\"!'?(|_|=_\\]|=)&[--|&:=.\"-",
+        "value": ":-=<-;.\">\"[-@)}+?\\~+>`{>,|^\\{%$<=`;\":(\"[>+",
         "description": "Contains special characters"
       },
       "invalid_length_short": {
-        "value": "57215377595863130948338707861423310427069",
+        "value": "64780531013577579130279155831443112706049",
         "description": "Length shorter than required 42 characters"
       },
       "invalid_length_long": {
-        "value": "9416152631474941002305370176579352942108043",
+        "value": "6607566328099736188255940854191797743999551",
         "description": "Length longer than required 42 characters"
       }
     },
@@ -2207,7 +2173,7 @@
       "allowedChars": "0-9",
       "description": "Must be exactly 42 characters long with numeric characters"
     },
-    "validExample": "997337486871024672721454530093208905173381"
+    "validExample": "537632150328274047391182528668792360131146"
   },
   "95": {
     "name": "Replacement Amounts",
@@ -2219,15 +2185,15 @@
     "notes": "Required from acquirers, or sent to issuers, for ATM partial dispenses and for transactions where the amount that was successful is different from the authorized amount.",
     "testCases": {
       "invalid_special_chars": {
-        "value": "$,[!'%@*'~?!;[;,|/\"|^_}=]>}*\".;-#<[;@<(&}+",
+        "value": "/@}=*%|)~=@|\">_|@&)-]/+?=>=@.]=>{)%</[|+~`",
         "description": "Contains invalid special characters"
       },
       "invalid_length_short": {
-        "value": "emd2WOW9bUb91kgXSe3xInjlaGQJWWPO9sqdbzuRZ",
+        "value": "FMWo3rhloDjssZCXJMN9iUrusCWddDiJwL2Xt8Jem",
         "description": "Length shorter than required 42 characters"
       },
       "invalid_length_long": {
-        "value": "OszpQajaVv2Xa6Sj2nG7D8SU4WiAeDbJ0GhRDvrLBwp",
+        "value": "VvbQohXG5U3XZiJCPPsF39k1hWWSLjfRdytQxVLPx20",
         "description": "Length longer than required 42 characters"
       }
     },
@@ -2236,7 +2202,7 @@
       "allowedChars": "a-zA-Z0-9",
       "description": "Must be exactly 42 characters long with alphanumeric characters"
     },
-    "validExample": "S9sHBYeCXYGeL6a0sHDKVquU3s6lmeULkCRXdZvFUE"
+    "validExample": "haXICPQwD5Jp4kz6b7qBwZuQAR5tK7zzshaRVsOCt4"
   },
   "96": {
     "name": "Message Security Code",
@@ -2248,19 +2214,19 @@
     "notes": "Processor-assigned password. Required when DE 70 (Network Management Information Code) contains specific values.",
     "testCases": {
       "invalid_type": {
-        "value": "uZi9Nl1XqJ3BhX5oakPekVWQRo5e0eaSFlT2OaIQyifhbVsQY6qeBiNzRdrihvy9",
+        "value": "kb6PpXHhLbPZs0mTC2BMDZnx1igEF6GVu6TjxppScwQvsszKTYr9B4sffExaHmEB",
         "description": "Contains non-binary characters"
       },
       "invalid_binary_chars": {
-        "value": "7474533644437358539874444264664459864233746469654465977393476552",
+        "value": "2425385367989863955847957345399988337483759832379996457735228885",
         "description": "Contains non-binary digits (not 0 or 1)"
       },
       "invalid_length_short": {
-        "value": "S2ZDB5e2GdDYWIPMmHwb6aHP03e4wLO9IuixsnnnOkyKCztAsNBTDRZmY40KVhj",
+        "value": "R3P02PS81ghrVp0gAcVS1uQJ77158Q9aTfx8dbqD2sMYlXKjitU72aeFwfC3zSp",
         "description": "Length shorter than required 64 characters"
       },
       "invalid_length_long": {
-        "value": "xoqaK6GLSZikt0IyUIQLMWF2WywjtPMYSHqrB8n4gSPw2tv0AF9nXcm9DfFIA4Y29",
+        "value": "5zXXu7fNMJKSZJuAIkAYqcIXQCJDMncEhRHa7gQteWlq2y4JX3Iu9lMvPZdfhdKeB",
         "description": "Length longer than required 64 characters"
       }
     },
@@ -2269,7 +2235,7 @@
       "allowedChars": "0-1",
       "description": "Must be exactly 64 characters long with binary characters"
     },
-    "validExample": "1010010111000101101001110011110101100101000110100101100100010101"
+    "validExample": "0100011100010101000001000000101101010111001100101111110000111010"
   },
   "98": {
     "name": "Payee",
@@ -2281,15 +2247,15 @@
     "notes": "Sent if available and if the transaction is a payment transaction.",
     "testCases": {
       "invalid_special_chars": {
-        "value": "-{:@^;/!`',{%;>^){%,:^_.)",
+        "value": "\";%$@>!]=,`)\\`){\"$^}]%=[@",
         "description": "Contains invalid special characters"
       },
       "invalid_length_short": {
-        "value": "1YuzHLdnrxizvgivRRT1PlQe",
+        "value": "t11c7FrIQGgFgv4k3kGESAxR",
         "description": "Length shorter than required 25 characters"
       },
       "invalid_length_long": {
-        "value": "bocHigXXUFcjSxekbn9Z2uFTHS",
+        "value": "zyvyo7qAdgRATTq9j8rHXgmKC3",
         "description": "Length longer than required 25 characters"
       }
     },
@@ -2298,7 +2264,7 @@
       "allowedChars": "a-zA-Z0-9",
       "description": "Must be exactly 25 characters long with alphanumeric characters"
     },
-    "validExample": "uTI5007SoLmOogbSRY1xdHbg9"
+    "validExample": "pxHKjDBkHi87yyFOexSRwuuiE"
   },
   "100": {
     "name": "Receiving Institution Identification Code",
@@ -2310,37 +2276,35 @@
     "notes": "Sent if routing is based on this DE instead of the PAN.",
     "testCases": {
       "invalid_type": {
-        "value": "LaAcprhFkoq",
+        "value": "ZzbulfPlTyy",
         "description": "Contains non-numeric characters"
       },
       "invalid_special_chars": {
-        "value": "[%)]!${}->/",
+        "value": "'&:>]'&%+)|",
         "description": "Contains special characters"
       },
       "invalid_length_exceed_max": {
-        "value": "170595211745",
-        "description": "Exceeds maximum length of 11 characters"
+        "value": "861758698797",
+        "description": "Raw data exceeds maximum length of 11 characters"
       },
-      "invalid_length_indicator": {
-        "value": "1248450112402",
-        "description": "Length indicator doesn't match actual data length"
-      },
-      "missing_length_indicator": {
-        "value": "48450112402",
-        "description": "Missing length indicator"
-      },
-      "zero_length": {
-        "value": "00",
-        "description": "Zero length indicator"
+      "invalid_empty": {
+        "value": "",
+        "description": "Empty raw data"
       }
     },
     "validationRules": {
       "maxLength": 11,
       "lengthIndicatorSize": 2,
       "allowedChars": "0-9",
-      "description": "Variable length up to 11 characters with llvar length indicator"
+      "description": "Variable length up to 11 characters with llvar length indicator",
+      "formatExample": {
+        "raw": "87981381086",
+        "formatted": "1187981381086",
+        "explanation": "Length indicator '11' + raw data '87981381086'"
+      }
     },
-    "validExample": "1138061667678"
+    "validExampleRaw": "87981381086",
+    "validExample": "1187981381086"
   },
   "102": {
     "name": "Account Identification 1",
@@ -2352,33 +2316,31 @@
     "notes": "Copied from the 01xx or 02xx message.",
     "testCases": {
       "invalid_special_chars": {
-        "value": "^][}$)),=^.];,&;%@'*{+*$(:\"`",
+        "value": "_\\\\{=\"!~.@>^%,=,\\]\"@\\`._\\:}*",
         "description": "Contains invalid special characters"
       },
       "invalid_length_exceed_max": {
-        "value": "xEPCyqWAfg5C4EWhyzVPBVIdcsJ0E",
-        "description": "Exceeds maximum length of 28 characters"
+        "value": "32A89cp6N596fsOvBQTlBwWfBagQx",
+        "description": "Raw data exceeds maximum length of 28 characters"
       },
-      "invalid_length_indicator": {
-        "value": "29wVwgtezjd8Bb3OBUFdNO67JVFAvk",
-        "description": "Length indicator doesn't match actual data length"
-      },
-      "missing_length_indicator": {
-        "value": "wVwgtezjd8Bb3OBUFdNO67JVFAvk",
-        "description": "Missing length indicator"
-      },
-      "zero_length": {
-        "value": "00",
-        "description": "Zero length indicator"
+      "invalid_empty": {
+        "value": "",
+        "description": "Empty raw data"
       }
     },
     "validationRules": {
       "maxLength": 28,
       "lengthIndicatorSize": 2,
       "allowedChars": "a-zA-Z0-9",
-      "description": "Variable length up to 28 characters with llvar length indicator"
+      "description": "Variable length up to 28 characters with llvar length indicator",
+      "formatExample": {
+        "raw": "Ha0EhQaB",
+        "formatted": "08Ha0EhQaB",
+        "explanation": "Length indicator '08' + raw data 'Ha0EhQaB'"
+      }
     },
-    "validExample": "05oScMR"
+    "validExampleRaw": "Ha0EhQaB",
+    "validExample": "08Ha0EhQaB"
   },
   "103": {
     "name": "Account Identification 2",
@@ -2390,33 +2352,31 @@
     "notes": "Copied from the 01xx or 02xx message.",
     "testCases": {
       "invalid_special_chars": {
-        "value": "[({;@+!;`=['!]%\\_\"_$@;\"_#~>@",
+        "value": "\"_')'{:#\"[|+`*%}!#'_;(|?*+!;",
         "description": "Contains invalid special characters"
       },
       "invalid_length_exceed_max": {
-        "value": "9jKs3VQQhwIUNwpe6Uk5DIQ9KnKRu",
-        "description": "Exceeds maximum length of 28 characters"
+        "value": "nNhLwGC4czLGh0ZMbWktUmrGjI9HE",
+        "description": "Raw data exceeds maximum length of 28 characters"
       },
-      "invalid_length_indicator": {
-        "value": "29Vx9yoPFbyqM0osaJzawx4Ra3H7Cm",
-        "description": "Length indicator doesn't match actual data length"
-      },
-      "missing_length_indicator": {
-        "value": "Vx9yoPFbyqM0osaJzawx4Ra3H7Cm",
-        "description": "Missing length indicator"
-      },
-      "zero_length": {
-        "value": "00",
-        "description": "Zero length indicator"
+      "invalid_empty": {
+        "value": "",
+        "description": "Empty raw data"
       }
     },
     "validationRules": {
       "maxLength": 28,
       "lengthIndicatorSize": 2,
       "allowedChars": "a-zA-Z0-9",
-      "description": "Variable length up to 28 characters with llvar length indicator"
+      "description": "Variable length up to 28 characters with llvar length indicator",
+      "formatExample": {
+        "raw": "SRt",
+        "formatted": "03SRt",
+        "explanation": "Length indicator '03' + raw data 'SRt'"
+      }
     },
-    "validExample": "06W0PDFu"
+    "validExampleRaw": "SRt",
+    "validExample": "03SRt"
   },
   "104": {
     "name": "Transaction Description",
@@ -2428,33 +2388,31 @@
     "notes": "Sent if available.",
     "testCases": {
       "invalid_special_chars": {
-        "value": ";*?`\"|.];]%$:'@@<_/+/+<#%*}:|?=).-\"/?\\|&>;*\\;~\"\\*~}[#},\\-<.+$+#'[{,@(<\"^_*?:[^)'\\!&'*`{`;|_^,=#_:.['",
+        "value": "]:%=|!|\\&^>`_<~:\\[_@!%*!%$).$/>&:#@!%:?${{/`'/_[<_@~#(\"`[?.;&_|-!`,*;\\}%]'}[`]\\(:~[)|:#<|@\\&?+!.=~%]",
         "description": "Contains invalid special characters"
       },
       "invalid_length_exceed_max": {
-        "value": "zHFBT2Vb6QEzV2rZGD0plKFJIR35hMr4TMVaUoNZPLi1Z6BSMBdyT1nXxQpoNiP0sHpHNe6N0YxfmHWjJ6dobkMquHweX96wqisD5",
-        "description": "Exceeds maximum length of 100 characters"
+        "value": "a6QQxInWXlp8a3H6nSJtsh7heNLAR0E820fTykk253EHhgs1qAClPz9u7vhHPe839GZIUvnDFoKnmTX1I89Hy6JQoOC9psX2KajlA",
+        "description": "Raw data exceeds maximum length of 100 characters"
       },
-      "invalid_length_indicator": {
-        "value": "101neY5PPDJG0JeH6N7j5acQCe5DyJurRs3aq5YhCHaXsEEs0bDg55zOG4kqMamUufTJeT9aZfNux739QIb2LiHu3szAeJxVHRkBu4j",
-        "description": "Length indicator doesn't match actual data length"
-      },
-      "missing_length_indicator": {
-        "value": "neY5PPDJG0JeH6N7j5acQCe5DyJurRs3aq5YhCHaXsEEs0bDg55zOG4kqMamUufTJeT9aZfNux739QIb2LiHu3szAeJxVHRkBu4j",
-        "description": "Missing length indicator"
-      },
-      "zero_length": {
-        "value": "000",
-        "description": "Zero length indicator"
+      "invalid_empty": {
+        "value": "",
+        "description": "Empty raw data"
       }
     },
     "validationRules": {
       "maxLength": 100,
       "lengthIndicatorSize": 3,
       "allowedChars": "a-zA-Z0-9",
-      "description": "Variable length up to 100 characters with lllvar length indicator"
+      "description": "Variable length up to 100 characters with lllvar length indicator",
+      "formatExample": {
+        "raw": "jQCJh1bMaBvUh7kEoK2TVzpTCgFnYwFnlI4eBHLDPMIMt79F4WoXJncQXxmt0ln5v",
+        "formatted": "065jQCJh1bMaBvUh7kEoK2TVzpTCgFnYwFnlI4eBHLDPMIMt79F4WoXJncQXxmt0ln5v",
+        "explanation": "Length indicator '065' + raw data 'jQCJh1bMaBvUh7kEoK2TVzpTCgFnYwFnlI4eBHLDPMIMt79F4WoXJncQXxmt0ln5v'"
+      }
     },
-    "validExample": "02889SxtaLutLJZ0E5n6V1yXPp1CFRJ"
+    "validExampleRaw": "jQCJh1bMaBvUh7kEoK2TVzpTCgFnYwFnlI4eBHLDPMIMt79F4WoXJncQXxmt0ln5v",
+    "validExample": "065jQCJh1bMaBvUh7kEoK2TVzpTCgFnYwFnlI4eBHLDPMIMt79F4WoXJncQXxmt0ln5v"
   },
   "105": {
     "name": "Large Private Data 1",
@@ -2466,33 +2424,31 @@
     "notes": "Sent if available.",
     "testCases": {
       "invalid_special_chars": {
-        "value": "!|_:!{'|*,+(-!$'_#][{{*.#-+~.{~\\=**,-}_}|%%_!/$`[;!`*.@/\\/|_/]-+{|)+`[^}-=?:+!(.?/~&{&(<:!|`;$$.(+@?_%[[[.:'*]+'~_'^#:|['?_&@^}*_-_^]?(/_&]}$@[]|/'|+\"/]`&%\".'<_),@`_:)`\\+!.'=,#</:}|{))~\"{}\"<`<#-|]+#>$@%}`{;||~\"?*+!*'\"%>`.+^-*?!$}:;\\<,@:}^;,|#)*%%&|@,)?@).",
+        "value": "+/>[>=(}_=(_[};)[%%:\\$.!~.]-{~-=+]~\\&&[}~?:[/\">@?)@]*)$/<{?=^`].\\}(_#%{{<{)\\<%^].:,%{@\\$@!>]'<.!'+<~$\"{,(/<@=\\}><:{(,?{/:/\\?;_%`.,%./>+#>@$`@*}##}/`~>){$_&_^(}:%[(>!-%+'{\\\\``}+=-=~@++:~\"\")$)!#@!-)=#*&,@,`^<\\~=.==\\\\*_@{..('|'[[/<+>'#{|\\:']/'(/~)*)_{#?]@'#(",
         "description": "Contains invalid special characters"
       },
       "invalid_length_exceed_max": {
-        "value": "1mRKYAtqt3d1ZO2Obd6ivCeVlwggklcuVBZZyibSv9TTpPoKoJ4qVVPyAsqZqagDbFfi1YwCpXk4ZyXOa5sMkGgFqvEcVSWIfP1tLaeAXvhC44nS21kRVa8TQaf7QSjOhBebHnUFCpbNVAeCbcGejWSlWpvrnL4bKbmfLdbu6UJGNWfE2KD6Ji3b6v4mZe22NqK0uuN5fjjb8CTDc0iMb7aFt5JRIuoyJdNxvHF6FNUKyH6iH2NR9dfxaOou0GWD",
-        "description": "Exceeds maximum length of 255 characters"
+        "value": "mSqyJFL6KY7gNkxauYvTKQ7CD2PE5qgS0i5nKbX98XsgdpD5JxCwrAykJ71eSJbp1rrpe9Mhk9ZhDXQhdsrbNiWH68MmanDRTdxMhDmJU9RfcHSaRtZvL8JZnFpkAuSO7euBZ3sS1S2tj5TGS9gQ6d0BrXU4bOLbFGGjPiv5vp4SkjmhfI9CAgmiBvhJxY7cPHWVUGjoe3ZjW9NnzlkB0IEmQG2VNCCMok5uFYUafPiO36URnE5R0YTkDtwlPPWd",
+        "description": "Raw data exceeds maximum length of 255 characters"
       },
-      "invalid_length_indicator": {
-        "value": "256wT0su92DNJG0dOXGjzf0rBYaVTxbufzz8yJoEMroqprF8Bl01fXSZUuh8Pddzt1l6xY5jc5HPxlBNZc1ErGVeZit9yCAqu2PvMS7M9L7AIhPXzZLDu16xswq8qHalCAtFvTkLmpz9uByduwh4V5xs8kHDqkjnkWnYHwCfP9nwb5pRGpY6AhDoJEZO7aMlf5GYsK6x5N4DmqFO4WZegWELLKSih9WekDC6sLRXCgX1DWjhfb00e1d4leApTj5nre",
-        "description": "Length indicator doesn't match actual data length"
-      },
-      "missing_length_indicator": {
-        "value": "wT0su92DNJG0dOXGjzf0rBYaVTxbufzz8yJoEMroqprF8Bl01fXSZUuh8Pddzt1l6xY5jc5HPxlBNZc1ErGVeZit9yCAqu2PvMS7M9L7AIhPXzZLDu16xswq8qHalCAtFvTkLmpz9uByduwh4V5xs8kHDqkjnkWnYHwCfP9nwb5pRGpY6AhDoJEZO7aMlf5GYsK6x5N4DmqFO4WZegWELLKSih9WekDC6sLRXCgX1DWjhfb00e1d4leApTj5nre",
-        "description": "Missing length indicator"
-      },
-      "zero_length": {
-        "value": "000",
-        "description": "Zero length indicator"
+      "invalid_empty": {
+        "value": "",
+        "description": "Empty raw data"
       }
     },
     "validationRules": {
       "maxLength": 255,
       "lengthIndicatorSize": 3,
       "allowedChars": "a-zA-Z0-9",
-      "description": "Variable length up to 255 characters with lllvar length indicator"
+      "description": "Variable length up to 255 characters with lllvar length indicator",
+      "formatExample": {
+        "raw": "bfNRFcEnTXlMxDd2Y8twJOrhYZ6R0ftMSCUJ4OSTad4dhND6apYre9mn5Za2g3Bvti84vZYye8KcqoI1jZfzYyumXCLUdaG3sLQPpSACr4tTKDIYsw3",
+        "formatted": "115bfNRFcEnTXlMxDd2Y8twJOrhYZ6R0ftMSCUJ4OSTad4dhND6apYre9mn5Za2g3Bvti84vZYye8KcqoI1jZfzYyumXCLUdaG3sLQPpSACr4tTKDIYsw3",
+        "explanation": "Length indicator '115' + raw data 'bfNRFcEnTXlMxDd2Y8twJOrhYZ6R0ftMSCUJ4OSTad4dhND6apYre9mn5Za2g3Bvti84vZYye8KcqoI1jZfzYyumXCLUdaG3sLQPpSACr4tTKDIYsw3'"
+      }
     },
-    "validExample": "224Xxc2lyZthppPyuafObCRNnRjpsf3QCGlBor8WoOwXAfjl9e7PCuACfKEVGzNhJj8YtrWGyXLCLjqj9LnXb6f1sXcrbmV9JXl5E2ndilSouJIikrS3dOipzgN3W3nBa6uuFXkAl4gl1HxMhnAY1bOgvMQhJAuFlMc3LYG8Gf1n4HSWmwZeXFbYdtj1eOSVVrUP4T4d6Aot4UpJhObMdsuF0IInwZJZa6I"
+    "validExampleRaw": "bfNRFcEnTXlMxDd2Y8twJOrhYZ6R0ftMSCUJ4OSTad4dhND6apYre9mn5Za2g3Bvti84vZYye8KcqoI1jZfzYyumXCLUdaG3sLQPpSACr4tTKDIYsw3",
+    "validExample": "115bfNRFcEnTXlMxDd2Y8twJOrhYZ6R0ftMSCUJ4OSTad4dhND6apYre9mn5Za2g3Bvti84vZYye8KcqoI1jZfzYyumXCLUdaG3sLQPpSACr4tTKDIYsw3"
   },
   "106": {
     "name": "Large Private Data 2",
@@ -2504,33 +2460,31 @@
     "notes": "Sent if available.",
     "testCases": {
       "invalid_special_chars": {
-        "value": "'>=;:=$$<:)-|<|&;=[_&.':-~!_{}<+\"*-?]$-|/[!}<<?+=!';?_?\\!|-}-+-<\">>*#:[;;/_]=:=`\\./&^_%\\`\\`(:`;?-!]^},'|%\\&='`{;?=<**=,#$((#+@{%)^@\":,/<%+-&&#._#\")>>'*`#/[[]<&#.@>:,`;\\\\!.+>!\\]&+:+%}(^]!:+`??-!.~:\\_`~_'#?$'^~^}[+[},%;/!?]^~)?",
+        "value": "(!~*/@{\\'&]$/)$=%){/$]}[#[<\"]{]@_/\"(~^|`>:;:,!.!;}#~[+!_.[^.#<{~<,')_=_|-;=#](%`\"},$};-~|_]*=%+}$(;?@.;,-<.+/%?$\\*;_|::&(%./,:,._=<,'\"~:!\"!#%~+\";&>?|:___,@+|^=]%\\#>[=-.%+,.{@)#,>~:+?:<<{/.&~#.)>%%?\\!.}{<@%+{(.)?.[+%>-[}%[.><(",
         "description": "Contains invalid special characters"
       },
       "invalid_length_exceed_max": {
-        "value": "jV7RH5X0IP5Hu3Ym6dSxFN3O72CTtXE9jEyGpLKa5jEPRYraj2VclmTzWRg1CN09yHbvoVVsuJUPcTN0RzHmM3xiA0cmGeSWWn7fLsKiBz92LAbwmukrNyl8whtum4ai3JOAOXvlO0K4ffdNymnP5YuSQZP5bIVoAEYXnLNrrGZVcPPqNFhAq19Odso3F2YYRoGZ4L0Z3lhKMCTGCtixNMj6zb5sieiht3",
-        "description": "Exceeds maximum length of 225 characters"
+        "value": "tmx7ElPC6NzEJx623v1ly6FJfIrmypmm6PaVY7xFBIZyqU7ThrBsz8Z5mhKe0s8gmtxyBqzYxjtdHv3JA0mSCDWcLViSjTkI1do9e3UDlcuIlTymFxVQFig8ccYjexnEHNykCVJyhzxktiXYo8nnWjgzRKXHf1LT6CbRTL5f0HbRy6hgsyAq3ROpzybta7w4Wzuiaa0XKlVCleaDqb1rRTrg1rsc7E7QCv",
+        "description": "Raw data exceeds maximum length of 225 characters"
       },
-      "invalid_length_indicator": {
-        "value": "226wsn7HWntQo3TxphxEPd5rDuBSUWisCJCmnIEUnBF4SipKUz3cKsETeUMJEGgcGNco5yKbDDZAhWhlgzEAnhcxaO5g9dIOrKrbx58mnldoeZb4F2zxCf6VK0Mqjc4nrIFAxZIV1oDzaKvLK0BHReZu8fFfl5SjklK1axp7pAtJ1QknPfS87nNZ3D5kWayEcvHIPKajDbJOLFDvIYjfeenvuOCBm32EEQBI",
-        "description": "Length indicator doesn't match actual data length"
-      },
-      "missing_length_indicator": {
-        "value": "wsn7HWntQo3TxphxEPd5rDuBSUWisCJCmnIEUnBF4SipKUz3cKsETeUMJEGgcGNco5yKbDDZAhWhlgzEAnhcxaO5g9dIOrKrbx58mnldoeZb4F2zxCf6VK0Mqjc4nrIFAxZIV1oDzaKvLK0BHReZu8fFfl5SjklK1axp7pAtJ1QknPfS87nNZ3D5kWayEcvHIPKajDbJOLFDvIYjfeenvuOCBm32EEQBI",
-        "description": "Missing length indicator"
-      },
-      "zero_length": {
-        "value": "000",
-        "description": "Zero length indicator"
+      "invalid_empty": {
+        "value": "",
+        "description": "Empty raw data"
       }
     },
     "validationRules": {
       "maxLength": 225,
       "lengthIndicatorSize": 3,
       "allowedChars": "a-zA-Z0-9",
-      "description": "Variable length up to 225 characters with lllvar length indicator"
+      "description": "Variable length up to 225 characters with lllvar length indicator",
+      "formatExample": {
+        "raw": "DSYRHb3bfzZkzLTmgOOrKYCm4",
+        "formatted": "025DSYRHb3bfzZkzLTmgOOrKYCm4",
+        "explanation": "Length indicator '025' + raw data 'DSYRHb3bfzZkzLTmgOOrKYCm4'"
+      }
     },
-    "validExample": "054ihNA5RBGvgFkDB6RvsuSsg340VadtRyZGHs66AlVrhDRIGlbL8RwPZ"
+    "validExampleRaw": "DSYRHb3bfzZkzLTmgOOrKYCm4",
+    "validExample": "025DSYRHb3bfzZkzLTmgOOrKYCm4"
   },
   "107": {
     "name": "Large Private Data 3",
@@ -2542,33 +2496,31 @@
     "notes": "Sent if available.",
     "testCases": {
       "invalid_special_chars": {
-        "value": "'*,|%_,}_+=@':'&\\\\_]\"%<%)#{^(-;+}/`?%_!/{\"'\\%_\\:'>>\"!/\"<%{+|,$*_>}{[$;%>&.;/+):*?%{*!_,<`_&)?=:'(),{%#/%$?/>#@$|.)$>^|*,<[|.~.^+!%%,:];)$~+&>.!@@&&%?%@&/@\\\"_?.&{'\\__/:!*+@;}^%(_!/#=[]+'&?/$&'{&(,*[@?=;[+:`/+#%+}[)^&},)'`!-~/]",
+        "value": "(;=\"+@)^$:|:,?\"?+.\\[-`'.:'),>&{@<;%\"\":;\"~/|-#[;^>-{+@-+@#\"-}<,!=;!]{>{,:<?%``:={(\\+})\">/\\}#%==/([{-=;*|(!$/+;\"!$<@\"}\"]{:$^.}:_]?[&#!~:+{_~%!`/<{}`[~&)>/;^!&}`+.=`![$|\\^*?&[-{!,$):/;[&<|#/.,,@/\"^$(:)\"%.[!]>?[#+,$]%~!<[([-?#^;-",
         "description": "Contains invalid special characters"
       },
       "invalid_length_exceed_max": {
-        "value": "6raoeXHzxI5EwLykalFfIRlem33nfR59rbCwK1pHUdo6xtPkBRdd6wwefMX4ThdoaFwHAOXSrgFtZKa7bX43iMNs6tV93HSLeq8U4OErTFi3Mx4ie8pwb3ji5igpQvshlcvjeAfOLkvjw704J2WEZXuQEARxql8i9KPfyhAwbOAXPsgIMRBFQFLHc6dWxPauOTvIClbT6uyVO2ZC5pIW9Jzq6dfdvTsUYi",
-        "description": "Exceeds maximum length of 225 characters"
+        "value": "vPVeALBS5khQIL4RRjFqEkmjPdUZKGYeNVDrS4xozJtIZJV59HKHdAKhRz7yhxDoV9gOAvdxG3Km6ntM5HchxNuErPt0CFHrTRE9OUispb4UhNdXOPmW4jqQzI270PSYsCPk2s4ww2m288WBpnI9nzVEh9IdOvDVPpOiP7NqHpq7zO8I5Mpcf6oIBdubc7Y5EMIQTlusD50x8UFV92y9I7DyXaoJUl8nqT",
+        "description": "Raw data exceeds maximum length of 225 characters"
       },
-      "invalid_length_indicator": {
-        "value": "226hC8dZX9DwuwPIVb8YKiLE7eeltPcNtOP2RfSqdl3jOWnMsSfiOAEawQ8mp1woJNtyaVH25AQKevrMOCXFJB92wHeFG80zBdBGWV7cuOVwdrSh1aWvdV1ntFEh9MczuX48Tto4uIooRcGsfkaSwj78XBHEiHf05CMZ0Way2NGiuKtfd21TupO69wXzsL1tIN0a1JHuV5CQl9J30Aq89DPYfOjfaBGQwzOS",
-        "description": "Length indicator doesn't match actual data length"
-      },
-      "missing_length_indicator": {
-        "value": "hC8dZX9DwuwPIVb8YKiLE7eeltPcNtOP2RfSqdl3jOWnMsSfiOAEawQ8mp1woJNtyaVH25AQKevrMOCXFJB92wHeFG80zBdBGWV7cuOVwdrSh1aWvdV1ntFEh9MczuX48Tto4uIooRcGsfkaSwj78XBHEiHf05CMZ0Way2NGiuKtfd21TupO69wXzsL1tIN0a1JHuV5CQl9J30Aq89DPYfOjfaBGQwzOS",
-        "description": "Missing length indicator"
-      },
-      "zero_length": {
-        "value": "000",
-        "description": "Zero length indicator"
+      "invalid_empty": {
+        "value": "",
+        "description": "Empty raw data"
       }
     },
     "validationRules": {
       "maxLength": 225,
       "lengthIndicatorSize": 3,
       "allowedChars": "a-zA-Z0-9",
-      "description": "Variable length up to 225 characters with lllvar length indicator"
+      "description": "Variable length up to 225 characters with lllvar length indicator",
+      "formatExample": {
+        "raw": "i3G1Go7xLrwhZel4smDxURArcDTsskTYYHb9egbhoKdl05XiDxNlJlLxFZ2XeezIUJOc1JMn83eHLyxrMU5B2wtMB6gtXquJubiAJ0WR6udhCpsCOuFuwsKWDHB4u8lk10QccVaJlngamszkH2XaKnfVgEUZSxgKsYvVnVav7j7rQbH8eUMfqmtLET6fE6oT7TDC4YGfJhKO6Cl0N",
+        "formatted": "209i3G1Go7xLrwhZel4smDxURArcDTsskTYYHb9egbhoKdl05XiDxNlJlLxFZ2XeezIUJOc1JMn83eHLyxrMU5B2wtMB6gtXquJubiAJ0WR6udhCpsCOuFuwsKWDHB4u8lk10QccVaJlngamszkH2XaKnfVgEUZSxgKsYvVnVav7j7rQbH8eUMfqmtLET6fE6oT7TDC4YGfJhKO6Cl0N",
+        "explanation": "Length indicator '209' + raw data 'i3G1Go7xLrwhZel4smDxURArcDTsskTYYHb9egbhoKdl05XiDxNlJlLxFZ2XeezIUJOc1JMn83eHLyxrMU5B2wtMB6gtXquJubiAJ0WR6udhCpsCOuFuwsKWDHB4u8lk10QccVaJlngamszkH2XaKnfVgEUZSxgKsYvVnVav7j7rQbH8eUMfqmtLET6fE6oT7TDC4YGfJhKO6Cl0N'"
+      }
     },
-    "validExample": "101cfirpKWa8FyCHrxahGi5WClO504EyCXcXrb3MQgzbKBa9N0h68aHYe1GP04IYRjif64rrkJivqCF34JK4gMJEJeQoJWKg7FmN8077"
+    "validExampleRaw": "i3G1Go7xLrwhZel4smDxURArcDTsskTYYHb9egbhoKdl05XiDxNlJlLxFZ2XeezIUJOc1JMn83eHLyxrMU5B2wtMB6gtXquJubiAJ0WR6udhCpsCOuFuwsKWDHB4u8lk10QccVaJlngamszkH2XaKnfVgEUZSxgKsYvVnVav7j7rQbH8eUMfqmtLET6fE6oT7TDC4YGfJhKO6Cl0N",
+    "validExample": "209i3G1Go7xLrwhZel4smDxURArcDTsskTYYHb9egbhoKdl05XiDxNlJlLxFZ2XeezIUJOc1JMn83eHLyxrMU5B2wtMB6gtXquJubiAJ0WR6udhCpsCOuFuwsKWDHB4u8lk10QccVaJlngamszkH2XaKnfVgEUZSxgKsYvVnVav7j7rQbH8eUMfqmtLET6fE6oT7TDC4YGfJhKO6Cl0N"
   },
   "108": {
     "name": "Large Private Data 4",
@@ -2580,33 +2532,31 @@
     "notes": "Sent if available.",
     "testCases": {
       "invalid_special_chars": {
-        "value": "+~#@.~?;_-]\\@^[=\"*(=%(/#>*{.|(%*}:\\<|=;-~^`@&!/|(\\~\\$<_?&=->;##(`'`<=_+#,*;-#?\\^>;'`@>.'\\<_.>;_]|>\\&\\;;*.`|(___$=:'>;'/,?{(~&<}!,\\\"/>*\":=$'`??,/?.#_@&=)(|#\\@/.:':/'('`#)=%\\#~(:&[%)\\!\"!,]!/>,~^,{;;@<<#;<-=![_[;<_?*$-^@\".\\^`,'.",
+        "value": "|\".!*|]&]`?$<:::]\"|.[%,&$%&+~_]:|]'<}):)$\"\"#'{/-]*@:']&;;,(++.)}',<$}&)<|:{,@~}~.?~-_|_('>=.+.\"+^&@@<,[(^<({.|}>`($([:$<\"&--.<*.\\:|\\;>[%_\":[|^|*'%<$-|&[\"%\\//'%~$)@=#!{].'?^\\?>.`(\">([!]&/;.-_<\\{[':%\"|;'$'=#&#.{.`&\"&[!,-'`*}}++",
         "description": "Contains invalid special characters"
       },
       "invalid_length_exceed_max": {
-        "value": "C37xTztzhFyRJ6ti9X8ySs0IRPCzEJT5SpLPUJbE20QvjdhHQEcbq0iZQ4TeiQ1thSx9h92adysTK4epOEi97003vkqcezj5TmBC8NggLshxOTYFeh3N3INcauSdrsgfFEbfWYn0r83CmCxSdyQXzxZ3ckNdNfc1yBb376RvGLOgD7QXi9MIO3qWYHjgza4M9xAHVPLeKiAiqXHPK0hf4qE96NjGDeKOMi",
-        "description": "Exceeds maximum length of 225 characters"
+        "value": "kaO0daTURNKmORo3TDtftjCkT9BmdnWa18hhUI9V9NnLcaRUeBpGLQ4OtJqAWAuzx8DBiCqJyoIrs7taAzo6H7DUkbnbH4ycNfLuyRTLjbaoeCXzNm1yCiCQvQOhvtzNfbLDAn2bkHTIjqOwLBG86fHHiB5gg9SfWTAzCzYuk4ORNDKTGt6GbodNyuSBkHaLJLB86ffc7SklyZP1J6H9WRvNRgfe5nrqpz",
+        "description": "Raw data exceeds maximum length of 225 characters"
       },
-      "invalid_length_indicator": {
-        "value": "226mjts4EGFlcVgRvdosLJhXyhSEyCKr1kg6kKtz4pVYaYrEy2GBCCdP6ICiIPnCXuO8vJsMYJmQ2dUDEcybCKvW5MuOKPwv3KuNGn7Qoq9y6Pry401gI9UbwrW1B0sppnddtGhXtyWolAv5v335fi28L5ID45PJ5tk7Dlv6iDU4rLGkM0WhOcBWWOHTL4ifiMkaSpZ7GFNNxVgI0RByvFLX8We6KWsMNPsV",
-        "description": "Length indicator doesn't match actual data length"
-      },
-      "missing_length_indicator": {
-        "value": "mjts4EGFlcVgRvdosLJhXyhSEyCKr1kg6kKtz4pVYaYrEy2GBCCdP6ICiIPnCXuO8vJsMYJmQ2dUDEcybCKvW5MuOKPwv3KuNGn7Qoq9y6Pry401gI9UbwrW1B0sppnddtGhXtyWolAv5v335fi28L5ID45PJ5tk7Dlv6iDU4rLGkM0WhOcBWWOHTL4ifiMkaSpZ7GFNNxVgI0RByvFLX8We6KWsMNPsV",
-        "description": "Missing length indicator"
-      },
-      "zero_length": {
-        "value": "000",
-        "description": "Zero length indicator"
+      "invalid_empty": {
+        "value": "",
+        "description": "Empty raw data"
       }
     },
     "validationRules": {
       "maxLength": 225,
       "lengthIndicatorSize": 3,
       "allowedChars": "a-zA-Z0-9",
-      "description": "Variable length up to 225 characters with lllvar length indicator"
+      "description": "Variable length up to 225 characters with lllvar length indicator",
+      "formatExample": {
+        "raw": "NmSY59HtfM4i4qqXoZhOAlyluX0tV2qULlqn4qYl2A1jLgatSfB7cfuXOg92Mf5DlBXPCEZRBOK5rmlTgSzxbXzkWeQR6Mg6PAKUt",
+        "formatted": "101NmSY59HtfM4i4qqXoZhOAlyluX0tV2qULlqn4qYl2A1jLgatSfB7cfuXOg92Mf5DlBXPCEZRBOK5rmlTgSzxbXzkWeQR6Mg6PAKUt",
+        "explanation": "Length indicator '101' + raw data 'NmSY59HtfM4i4qqXoZhOAlyluX0tV2qULlqn4qYl2A1jLgatSfB7cfuXOg92Mf5DlBXPCEZRBOK5rmlTgSzxbXzkWeQR6Mg6PAKUt'"
+      }
     },
-    "validExample": "075e9MiB9P93g9KlMtTxU6euqh4PKbMm0cLleN0UicK4luTHBMbLw1lIVORKstpggr4ojFsiMUjXT6"
+    "validExampleRaw": "NmSY59HtfM4i4qqXoZhOAlyluX0tV2qULlqn4qYl2A1jLgatSfB7cfuXOg92Mf5DlBXPCEZRBOK5rmlTgSzxbXzkWeQR6Mg6PAKUt",
+    "validExample": "101NmSY59HtfM4i4qqXoZhOAlyluX0tV2qULlqn4qYl2A1jLgatSfB7cfuXOg92Mf5DlBXPCEZRBOK5rmlTgSzxbXzkWeQR6Mg6PAKUt"
   },
   "109": {
     "name": "Sender Data",
@@ -2618,33 +2568,31 @@
     "notes": "Sent if available.",
     "testCases": {
       "invalid_special_chars": {
-        "value": "<'<~('.^_=*_)+*){/#\"(!@#-:/'_*~*#}>$\"~#[.&\\\\/)|^.~?^\"=|&}|#<<[-')=!*\\!%\\.'~*/]\\`@(':'[;_[}+{%_^<~#}\\:<^|\"#^>#,\\$=?]{\\->|[&@;{^,<]@\\|_\"$\",^/=\\.@!:(-]>}_=<?:\")<*~_<`&;-[\"`|:->!`&}/:`~,[-\\'!'`+[^<>%!~=`,%=>~$?>~.\\|}||_`\\$\\^#)%'<",
+        "value": "//##{|;<?!>[&*\\^-@*;^)]{!!-<-'>;!|$*,{@$!@?[\"%:*./!%*|\\|\">'<=\"\">/_#&^,))!+;}^/>&_=_%~)_;|]:~%@>\\=!-};,,;\"(\")\"\\}+;,+};$$->_[==(.).+%!^^$)&&:!?#?|_|`]-}[;\"{;?}?.<@<)\\&^/;':?|{[;\"\":-(.'\\,\"{).%^*!%,<;'/^`.\"?.(,*`';[//[|:[/>}|]^;>",
         "description": "Contains invalid special characters"
       },
       "invalid_length_exceed_max": {
-        "value": "3RyzOte4Bet0flPyyK5TqkPedGoXoOBz4M1WB8opjPFSVMFb2y9IpFbLujazdOB7MLIRMUppsp5QZ8AbSFOXghGUmdaNGeh3YJROmcvalEM2GfnaFWLeTh1Ub5y6Mr2DHBlmRycH7ho2PvkQ2ADFbe6wucfhUUqMLAARiyKLA54qGbHni62EyD6oUrHhFruGvECQNeL3oAOIzVSwG9LSKatHY2yLJ4186K",
-        "description": "Exceeds maximum length of 225 characters"
+        "value": "cVKTVCKIFNhZL4jlzZFrmTZ1XglKPdA1owFK1W0Qx5wgMWt65CVXubSLqJx6Go0eEvTVubQs1lzIfMnuhMXBLMjwAEwj27PmNOyLxuoT0ly0Hlf51g692J0Ap4jRmlGPCS4i5iuzhT93Xw7jSpQJRqwB8hhUHOBCXP3xVfLCYxyssWCIQUkHX42nTXk77WMWBe3aT27UAMlFUnYSdVUEQJWpHd3zkrhtiy",
+        "description": "Raw data exceeds maximum length of 225 characters"
       },
-      "invalid_length_indicator": {
-        "value": "226poaZTWqgSwY0hdUc310tjf9SF65gLN41Kry2YyLXIsnRdY8bZmAyataEk7KVeLRcouKCp7Xcp4C2agAOWzcJFuv5dYidLdaYOk0i9HywKeZGGN3I0hTbXbJx27WghAnH6SyxYDHpEAEfN9jHdYoCuFYPreLvXNjIMebRambNpQND1Yczm0Q4p2kloMgq7lwk67UNV2Zu3Z42h3AsDvMpu6mpcen1Z8MTE",
-        "description": "Length indicator doesn't match actual data length"
-      },
-      "missing_length_indicator": {
-        "value": "poaZTWqgSwY0hdUc310tjf9SF65gLN41Kry2YyLXIsnRdY8bZmAyataEk7KVeLRcouKCp7Xcp4C2agAOWzcJFuv5dYidLdaYOk0i9HywKeZGGN3I0hTbXbJx27WghAnH6SyxYDHpEAEfN9jHdYoCuFYPreLvXNjIMebRambNpQND1Yczm0Q4p2kloMgq7lwk67UNV2Zu3Z42h3AsDvMpu6mpcen1Z8MTE",
-        "description": "Missing length indicator"
-      },
-      "zero_length": {
-        "value": "000",
-        "description": "Zero length indicator"
+      "invalid_empty": {
+        "value": "",
+        "description": "Empty raw data"
       }
     },
     "validationRules": {
       "maxLength": 225,
       "lengthIndicatorSize": 3,
       "allowedChars": "a-zA-Z0-9",
-      "description": "Variable length up to 225 characters with lllvar length indicator"
+      "description": "Variable length up to 225 characters with lllvar length indicator",
+      "formatExample": {
+        "raw": "KjAguQKbn",
+        "formatted": "009KjAguQKbn",
+        "explanation": "Length indicator '009' + raw data 'KjAguQKbn'"
+      }
     },
-    "validExample": "086FFMDfwauHfOVMLQjM5MHbubR6IUkkRV6vsc7QyJ2W7ynLGMk9vCovJ25tPVZGQcTaDAcw50XwaIREKhcB3MmAp"
+    "validExampleRaw": "KjAguQKbn",
+    "validExample": "009KjAguQKbn"
   },
   "110": {
     "name": "Receiver Data",
@@ -2656,33 +2604,31 @@
     "notes": "Sent if available.",
     "testCases": {
       "invalid_special_chars": {
-        "value": "_(%_`@:^\\@+&(\"&\\:@(>}[!;^]*-%@%~?!+>}\"}\\{,.-@|&],@)+-#@[|?.`}]^_?)'.&?:_`#&>>%{+//[;^&.\\+:\"/;;?&+^:$!%:},,+})+=<;}.''!(\\~!#-(<\">;^~!.,:=!/@^}#~%%{(]][\\=[?[=>\\%-+^#-^&?]`];&\"$}*,:&`#?*![=;(.)>\\'-[,%=~.);_[%`\"<>;+#%++},^(^*\"~),",
+        "value": "##>'[?+@.[+-^>'$<$')\"`-+%_/(}[=(,$%`='+$.}:%\\/,%[.\\?&-%+\".$,;],$;'<?='(`=\"+^\\(.%=?*\"#-#&$_}`&'_<-]{;^_,/^]/{+;${?+#'.|&}$**'^}&-}/?>&~(#-=,=|<!_?#{+_/@/%_'%)<\\+?/.={|]#!!&(].|~%|{;+&%?=]+{@]%)~\\[.{^&^:;%]@[>{=~~%>-&'(}|,[+!,<",
         "description": "Contains invalid special characters"
       },
       "invalid_length_exceed_max": {
-        "value": "V3Ifg7zQILgEL6ZaZq4B3mTILY5jPIDA86AHc1IE3ElQdaU036jXh6Hn3mmWIZALajLLsk2UP9pk8XHMesh7hoBa4urQAFARGHjJMWpMRSRrqHAyyHaqVCWvkeQ8g6sgnCF64FA3nt4WYRK4W99NKPgGpTyPCnVfz7v2UMWuBprZnP51OWzzMvPolxBv4oOOyA8TncrRcGFZSH6Lip1OQv0qKsH8NR2dxd",
-        "description": "Exceeds maximum length of 225 characters"
+        "value": "IZk5bqIae2Kc98vEYheDuo6dgqvezCmhKMGhreVIo2g07lUcwHSQ6XHN9nkp8DEmNM0P1M6dAfz0SyIn5dQ3kEsDs53pDek2Miv5e3dD3J0HghntevBmRAJFQLiCurKAaiHeZUtjfd40K1KGIHOwafgeOIKDUCWVgjFEPR1Hh0OrRq4J6cRvT2umC3Q0xLYWM3eJ6J5GdCfduWiwBsFGgmG4P2OVJ8lU3K",
+        "description": "Raw data exceeds maximum length of 225 characters"
       },
-      "invalid_length_indicator": {
-        "value": "226mh4m4pvpmcjtLOTfVyvAIQeUAUV2IHK7BgVFv3zYXJFuEMzbj9qbmXPYHFUuhkwib1Gk7ZopMJa5tUkGVVYiZdlcvEONzO858kgwQFwndI0CvRoqbkPZZDBThYFkhQdSmCjsM7qndBv1QwK7RxNI55UdYcMjZ9iwsnLBUHTrXsmko4l135xwR0zice9F7jJasgxidj5vCEBn84LkaBcxmlvPwuBWLo96T",
-        "description": "Length indicator doesn't match actual data length"
-      },
-      "missing_length_indicator": {
-        "value": "mh4m4pvpmcjtLOTfVyvAIQeUAUV2IHK7BgVFv3zYXJFuEMzbj9qbmXPYHFUuhkwib1Gk7ZopMJa5tUkGVVYiZdlcvEONzO858kgwQFwndI0CvRoqbkPZZDBThYFkhQdSmCjsM7qndBv1QwK7RxNI55UdYcMjZ9iwsnLBUHTrXsmko4l135xwR0zice9F7jJasgxidj5vCEBn84LkaBcxmlvPwuBWLo96T",
-        "description": "Missing length indicator"
-      },
-      "zero_length": {
-        "value": "000",
-        "description": "Zero length indicator"
+      "invalid_empty": {
+        "value": "",
+        "description": "Empty raw data"
       }
     },
     "validationRules": {
       "maxLength": 225,
       "lengthIndicatorSize": 3,
       "allowedChars": "a-zA-Z0-9",
-      "description": "Variable length up to 225 characters with lllvar length indicator"
+      "description": "Variable length up to 225 characters with lllvar length indicator",
+      "formatExample": {
+        "raw": "QB38YJiZW9ta01g3pmhbonXPVoT03pgvACoguJiSrbaJ4U6ja2pw5C9Zmsxc09fbt01sustX9wBt0U7itpAWuOx",
+        "formatted": "087QB38YJiZW9ta01g3pmhbonXPVoT03pgvACoguJiSrbaJ4U6ja2pw5C9Zmsxc09fbt01sustX9wBt0U7itpAWuOx",
+        "explanation": "Length indicator '087' + raw data 'QB38YJiZW9ta01g3pmhbonXPVoT03pgvACoguJiSrbaJ4U6ja2pw5C9Zmsxc09fbt01sustX9wBt0U7itpAWuOx'"
+      }
     },
-    "validExample": "211KISsgg2ik7rOGQmDZ8GWil1kg7Rd8hjWAiEC5yYcO0iIZ3RPnzBz6rYpQSrvtxWEE7purcuSQFfqN7zKp94SrFeDgCdigUemYvkpAw0eESzNa640qddsYYWnexclCshEATPFCQ1wX0NjFkNqjGnXFoHMr9qXTDXOAWMSxj0OJUoK5TnWYH8yUGalwad9alM82F5ftOuaOOnynd30JQG"
+    "validExampleRaw": "QB38YJiZW9ta01g3pmhbonXPVoT03pgvACoguJiSrbaJ4U6ja2pw5C9Zmsxc09fbt01sustX9wBt0U7itpAWuOx",
+    "validExample": "087QB38YJiZW9ta01g3pmhbonXPVoT03pgvACoguJiSrbaJ4U6ja2pw5C9Zmsxc09fbt01sustX9wBt0U7itpAWuOx"
   },
   "111": {
     "name": "Additional Data, Private Acquirer",
@@ -2694,33 +2640,31 @@
     "notes": "Sent if available.",
     "testCases": {
       "invalid_special_chars": {
-        "value": ",.\\>_/#}_)`-$#&]#^->)*!}=![+)\\{@]?@~{>%<\\.=/&'#'@+>((.=$]}=&,,%(-(.+['-)%^!:@'\"-(|.`/#?);?`~&_}%^*=(+.\"~`;\\_<-\"*[-\"}/~'[.+\"<!+?(<(#|-]~-.{%]}\\><'=#}=>\\#@<:)!$+&]@!:<\"|')+@%#{&&`~|~?(&%,*(^@`({:%%-;][>^),={>.<,'[({(||]))(),,\\(",
+        "value": "&*$+;_[[.&(*<<{'+|\"`}|:{\\<),\"[{<|<_{@$}/;_<\"&%%#|=~(]{<_.&>%@=-^+@$%\"}^*{%$=]})@`>[?+{#/%)={#&\\!\"*=#<}%%[&`//<+*)\\-])^)>\\%,-)<#\\~:{>!.@;\"[\\@@:':<^/@_~\\\",>/.%&{-\\^@?'!<)(|@&@-^=-`$<]`~_?/%+)>[\\?$][$~>$}>.^*[}!\\=~!;@!_#**~>%=^]",
         "description": "Contains invalid special characters"
       },
       "invalid_length_exceed_max": {
-        "value": "17L5RQTZFUDLYaBDzO9sNtAhP1HronTI58niraoYcCRMMY1D6qY4OZCb2eDeaTo3NKiViDp1KosjtlMCWJrkY4CVx3Vl9RMDZbw4GBFf0uUbbHGSD150WRNp1I6h8jQp7wpshFG7Og1T7A9z45g1XenA0zrEgKIqZBkO8yWXI9QVtCOOc768EzMDzCGGTzUKUXcDehDYA1nUaJB7hb6WKvQXPlfpItcqqu",
-        "description": "Exceeds maximum length of 225 characters"
+        "value": "QcpZB70lH7THwM1taTLPVCjWMBQSPJrzVYjfrWV7EeE7gVwCkVvWlP5OLytVHKLUzU9vncPTxUkDFDYB0pj2aziOocKXSS2A2HVlz7pVUt1xkjAWH75woHdYhGgcKoB6VBWR5iY8laWIGJ5Q7PeJwll3htob2wckcM6iQubTZpT2vTk1I9Prw9WrSTdJUqJ6gt9JFvwRRlgxL0Mt5SnOzaIZzBp5Qos8fw",
+        "description": "Raw data exceeds maximum length of 225 characters"
       },
-      "invalid_length_indicator": {
-        "value": "226Oi3rjOzsMIw43Ytytp8hewDkeDJ4NOjXnmqDxyi5vWCwXaJvxJeti5HWg1L6hqfZFRLxH0gyXmKBa6efSt04w0TbBGz6CigKcgC2HJvy9cmZupnmvMOwBvxi9cBm3gVtToGCK0PRYcVfkwpHqvL3vxH6b5Wbzoe07gG7NukXOu1KMdxyYD7xKS7letrzTpYJpG5VzJ1vW7sAjObPh8TvYDHMy1wsR7pG3",
-        "description": "Length indicator doesn't match actual data length"
-      },
-      "missing_length_indicator": {
-        "value": "Oi3rjOzsMIw43Ytytp8hewDkeDJ4NOjXnmqDxyi5vWCwXaJvxJeti5HWg1L6hqfZFRLxH0gyXmKBa6efSt04w0TbBGz6CigKcgC2HJvy9cmZupnmvMOwBvxi9cBm3gVtToGCK0PRYcVfkwpHqvL3vxH6b5Wbzoe07gG7NukXOu1KMdxyYD7xKS7letrzTpYJpG5VzJ1vW7sAjObPh8TvYDHMy1wsR7pG3",
-        "description": "Missing length indicator"
-      },
-      "zero_length": {
-        "value": "000",
-        "description": "Zero length indicator"
+      "invalid_empty": {
+        "value": "",
+        "description": "Empty raw data"
       }
     },
     "validationRules": {
       "maxLength": 225,
       "lengthIndicatorSize": 3,
       "allowedChars": "a-zA-Z0-9",
-      "description": "Variable length up to 225 characters with lllvar length indicator"
+      "description": "Variable length up to 225 characters with lllvar length indicator",
+      "formatExample": {
+        "raw": "SDzakxAZmqTkrglW9l4eX4TGseVvLnVboA4rwjrO0YBUgQscTpma81S7YBLw9u2tcPuUVJrK5ctvpqd4tKYEDGw7NsAwJGOAHTCjo8ecKc5XrY7xgGU2Sq8aTRtmwPQKnRBVPgqQ4BjDkZH",
+        "formatted": "143SDzakxAZmqTkrglW9l4eX4TGseVvLnVboA4rwjrO0YBUgQscTpma81S7YBLw9u2tcPuUVJrK5ctvpqd4tKYEDGw7NsAwJGOAHTCjo8ecKc5XrY7xgGU2Sq8aTRtmwPQKnRBVPgqQ4BjDkZH",
+        "explanation": "Length indicator '143' + raw data 'SDzakxAZmqTkrglW9l4eX4TGseVvLnVboA4rwjrO0YBUgQscTpma81S7YBLw9u2tcPuUVJrK5ctvpqd4tKYEDGw7NsAwJGOAHTCjo8ecKc5XrY7xgGU2Sq8aTRtmwPQKnRBVPgqQ4BjDkZH'"
+      }
     },
-    "validExample": "106DrLUEUMpyNeNYEJ5uCoZqvRelP9HOV5LABy7JVg6ZpO8WbxwUidW4SPmrmuaNBhjY0bNZfs0SF4qgphBed2oZmqNs9iAwPQnUV4HCLlsfv"
+    "validExampleRaw": "SDzakxAZmqTkrglW9l4eX4TGseVvLnVboA4rwjrO0YBUgQscTpma81S7YBLw9u2tcPuUVJrK5ctvpqd4tKYEDGw7NsAwJGOAHTCjo8ecKc5XrY7xgGU2Sq8aTRtmwPQKnRBVPgqQ4BjDkZH",
+    "validExample": "143SDzakxAZmqTkrglW9l4eX4TGseVvLnVboA4rwjrO0YBUgQscTpma81S7YBLw9u2tcPuUVJrK5ctvpqd4tKYEDGw7NsAwJGOAHTCjo8ecKc5XrY7xgGU2Sq8aTRtmwPQKnRBVPgqQ4BjDkZH"
   },
   "113": {
     "name": "Authorizing Agent Institution ID Code (ANSI-defined)",
@@ -2732,37 +2676,35 @@
     "notes": "Required only if requested by the issuer.",
     "testCases": {
       "invalid_type": {
-        "value": "cBXUArkCQGv",
+        "value": "RHwCsjHnBMC",
         "description": "Contains non-numeric characters"
       },
       "invalid_special_chars": {
-        "value": "(\\#:'^\"`\"=\"",
+        "value": "_\"(`%:':&}*",
         "description": "Contains special characters"
       },
       "invalid_length_exceed_max": {
-        "value": "204344498991",
-        "description": "Exceeds maximum length of 11 characters"
+        "value": "706335243304",
+        "description": "Raw data exceeds maximum length of 11 characters"
       },
-      "invalid_length_indicator": {
-        "value": "01224685990063",
-        "description": "Length indicator doesn't match actual data length"
-      },
-      "missing_length_indicator": {
-        "value": "24685990063",
-        "description": "Missing length indicator"
-      },
-      "zero_length": {
-        "value": "000",
-        "description": "Zero length indicator"
+      "invalid_empty": {
+        "value": "",
+        "description": "Empty raw data"
       }
     },
     "validationRules": {
       "maxLength": 11,
       "lengthIndicatorSize": 3,
       "allowedChars": "0-9",
-      "description": "Variable length up to 11 characters with lllvar length indicator"
+      "description": "Variable length up to 11 characters with lllvar length indicator",
+      "formatExample": {
+        "raw": "3846170064",
+        "formatted": "0103846170064",
+        "explanation": "Length indicator '010' + raw data '3846170064'"
+      }
     },
-    "validExample": "0040511"
+    "validExampleRaw": "3846170064",
+    "validExample": "0103846170064"
   },
   "120": {
     "name": "Account Qualifiers",
@@ -2774,33 +2716,31 @@
     "notes": "Required only if requested by the issuer.",
     "testCases": {
       "invalid_special_chars": {
-        "value": "(%>+%+",
+        "value": ",)});<",
         "description": "Contains invalid special characters"
       },
       "invalid_length_exceed_max": {
-        "value": "GGet0sD",
-        "description": "Exceeds maximum length of 6 characters"
+        "value": "e5KQi3F",
+        "description": "Raw data exceeds maximum length of 6 characters"
       },
-      "invalid_length_indicator": {
-        "value": "007uQwCu0",
-        "description": "Length indicator doesn't match actual data length"
-      },
-      "missing_length_indicator": {
-        "value": "uQwCu0",
-        "description": "Missing length indicator"
-      },
-      "zero_length": {
-        "value": "000",
-        "description": "Zero length indicator"
+      "invalid_empty": {
+        "value": "",
+        "description": "Empty raw data"
       }
     },
     "validationRules": {
       "maxLength": 6,
       "lengthIndicatorSize": 3,
       "allowedChars": "a-zA-Z0-9",
-      "description": "Variable length up to 6 characters with lllvar length indicator"
+      "description": "Variable length up to 6 characters with lllvar length indicator",
+      "formatExample": {
+        "raw": "X6VItK",
+        "formatted": "006X6VItK",
+        "explanation": "Length indicator '006' + raw data 'X6VItK'"
+      }
     },
-    "validExample": "003uU5"
+    "validExampleRaw": "X6VItK",
+    "validExample": "006X6VItK"
   },
   "122": {
     "name": "Sponsor Bank ID",
@@ -2812,33 +2752,31 @@
     "notes": "Required only if requested by the issuer.",
     "testCases": {
       "invalid_special_chars": {
-        "value": "|\\&?``#\"}%`",
+        "value": "\"~(::$#/?|?",
         "description": "Contains invalid special characters"
       },
       "invalid_length_exceed_max": {
-        "value": "0kfz0ZFVRXPg",
-        "description": "Exceeds maximum length of 11 characters"
+        "value": "3v4qJUMO82EY",
+        "description": "Raw data exceeds maximum length of 11 characters"
       },
-      "invalid_length_indicator": {
-        "value": "012pe4gqvchQZI",
-        "description": "Length indicator doesn't match actual data length"
-      },
-      "missing_length_indicator": {
-        "value": "pe4gqvchQZI",
-        "description": "Missing length indicator"
-      },
-      "zero_length": {
-        "value": "000",
-        "description": "Zero length indicator"
+      "invalid_empty": {
+        "value": "",
+        "description": "Empty raw data"
       }
     },
     "validationRules": {
       "maxLength": 11,
       "lengthIndicatorSize": 3,
       "allowedChars": "a-zA-Z0-9",
-      "description": "Variable length up to 11 characters with lllvar length indicator"
+      "description": "Variable length up to 11 characters with lllvar length indicator",
+      "formatExample": {
+        "raw": "GQYgOvv3Q",
+        "formatted": "009GQYgOvv3Q",
+        "explanation": "Length indicator '009' + raw data 'GQYgOvv3Q'"
+      }
     },
-    "validExample": "005L5qc9"
+    "validExampleRaw": "GQYgOvv3Q",
+    "validExample": "009GQYgOvv3Q"
   },
   "123": {
     "name": "Additional Data",
@@ -2850,33 +2788,31 @@
     "notes": "Required to support the Address Verification Service (AVS) and other types of verification data.",
     "testCases": {
       "invalid_special_chars": {
-        "value": "&_:{^;@[!_\\)}}.?-)()!.\"=#';<%}&/|]/[{>%['({`-]&/)^",
+        "value": ")#~}#.)=+_+>{/|^>?/?()=\\[\"}~%:]$=~$.-'-!'](>^*$'~[",
         "description": "Contains invalid special characters"
       },
       "invalid_length_exceed_max": {
-        "value": "hXTCTllFON5avTaS3imX6Jxvgoo7269MIfio1Va7940qEbtgN95",
-        "description": "Exceeds maximum length of 50 characters"
+        "value": "RUKmIcOkFjIeFsdNrEdRdBnIWD4AY3COMHxA7DQOzhemeJ9kTxA",
+        "description": "Raw data exceeds maximum length of 50 characters"
       },
-      "invalid_length_indicator": {
-        "value": "051aSHUAxpsoCgiRMPfw1JOaY7xGadLUxZrIVXxMcVmlxRYPMD84j",
-        "description": "Length indicator doesn't match actual data length"
-      },
-      "missing_length_indicator": {
-        "value": "aSHUAxpsoCgiRMPfw1JOaY7xGadLUxZrIVXxMcVmlxRYPMD84j",
-        "description": "Missing length indicator"
-      },
-      "zero_length": {
-        "value": "000",
-        "description": "Zero length indicator"
+      "invalid_empty": {
+        "value": "",
+        "description": "Empty raw data"
       }
     },
     "validationRules": {
       "maxLength": 50,
       "lengthIndicatorSize": 3,
       "allowedChars": "a-zA-Z0-9",
-      "description": "Variable length up to 50 characters with lllvar length indicator"
+      "description": "Variable length up to 50 characters with lllvar length indicator",
+      "formatExample": {
+        "raw": "Dp",
+        "formatted": "002Dp",
+        "explanation": "Length indicator '002' + raw data 'Dp'"
+      }
     },
-    "validExample": "027rIzfmLDFRaq8JHsQ5gmguiZrdyh"
+    "validExampleRaw": "Dp",
+    "validExample": "002Dp"
   },
   "124": {
     "name": "Tag Data Acquirer",
@@ -2888,33 +2824,31 @@
     "notes": "Sent if tagged data is available in tag-length-value (TLV) format.",
     "testCases": {
       "invalid_special_chars": {
-        "value": "`^#\"~\"<?'$^**\"&'<$*:_'?,,\\+*`';.=\\/]$~~]{-$$=,':@@!'*(;}(^?*=!;??~\\[#`;[?!.[-#=+(={_%~))|}'`~%{;+#{<~-^!'^*?/}];&((-]{;[^*<^{;_:*$#]&*)`]:;\\!'-|=/|?&#=~,:%\\.?$)~~!]#`[#{#)?}!*/[:~|.![!=!)_}!<;_<}*+`{\\[=$&&@/%~+.\\\\#]([^/.@|?//&;>+)-:*}*,/'^[,.?$!#^^*/>;/'{",
+        "value": "@$.%\\+=|$`&';$:?#)${??#/-`.\\'\\@](>:[|'./~)^<?(^@<\"\"=[{:\\-=((_]=@{@=#<-@\\_%*#\"%!|'?!+>{/:(.)[{\\:\"(,<?/\"@&@.));&(^`*]@>.(*;;_}$@+;}&;%&}[}##]<\"*_@>)%<};\\&[[;(/**|%}]_|:.{\"--$%/=?#%}@|+'\\$)&;{`~|,;%`^!/=@>)\"~@_>\"\\&\\<%<`,\\'&_#//&?}{>)@'?`&+$.$/]$`/>%;(\"}@@%:|",
         "description": "Contains invalid special characters"
       },
       "invalid_length_exceed_max": {
-        "value": "7TZBdPvR2QbPGHardTsJbQYea8AlPAgHkAoxcjptLKQmOH5hFuwuDbsF27e4NeN5vuxsoVUiErvPWE2n2mEr6H5cYz2ozc1hcNU61kcpImXbpcGufuoa19GFHr1frXlOkG9HS757woXzqtswPTmns7GDm6cQOub8LA8r3Cvss8qW10F1I8v9S6RVeYrBUQokgyCeYwP47bCPdiqnNbdZ2gblHpfakVNEU9nDLLfMKAoUw9MLmw3cZHVrrewP7hJo",
-        "description": "Exceeds maximum length of 255 characters"
+        "value": "auAhPeOAmjNJ7tkR8kyaVuSxLGXrZ8o23YaloojswFq6dabTSXB1tAF97TECbZUbOahRqutbkiLT3vrVhlGyzdwMh14LVBb8EVFVkZTxjxb4zna1J0FElUqcRuG6TZma4OPKVPsG9VauujQqwGs4yOvp9IyvyG9qyBZq4sMQ17thV1e6PLEmQHlt7QCeviQ7lVXeSVzoApbohHaXgBs4qPXBO449SmCqNOj556kcPgacATBWWPppQAVnROfdt9C2",
+        "description": "Raw data exceeds maximum length of 255 characters"
       },
-      "invalid_length_indicator": {
-        "value": "256chzrSEUT8lk82T5ARz8THP5Wynjq6oOE6xQrHs1nocuXZ8ps1CNDCMFXZQbtTi1dkyJRtCoqBNbFvlVaKPEgafeSE3DX5gEk00jekwtxuxBWtCSEz5qjL0dClcLmU1rFI7A6mA3KMXfTgElzhxSgVm2OFiVAilbs11Yu55F4KG8CdxYYy7zElDaeTxeBR26YrQtLbH0xyxqA1cYfTITo8ZBUzyuq3oUaGhTE6QTuxQwrG7nwpprI1DCJVxwFxhh",
-        "description": "Length indicator doesn't match actual data length"
-      },
-      "missing_length_indicator": {
-        "value": "chzrSEUT8lk82T5ARz8THP5Wynjq6oOE6xQrHs1nocuXZ8ps1CNDCMFXZQbtTi1dkyJRtCoqBNbFvlVaKPEgafeSE3DX5gEk00jekwtxuxBWtCSEz5qjL0dClcLmU1rFI7A6mA3KMXfTgElzhxSgVm2OFiVAilbs11Yu55F4KG8CdxYYy7zElDaeTxeBR26YrQtLbH0xyxqA1cYfTITo8ZBUzyuq3oUaGhTE6QTuxQwrG7nwpprI1DCJVxwFxhh",
-        "description": "Missing length indicator"
-      },
-      "zero_length": {
-        "value": "000",
-        "description": "Zero length indicator"
+      "invalid_empty": {
+        "value": "",
+        "description": "Empty raw data"
       }
     },
     "validationRules": {
       "maxLength": 255,
       "lengthIndicatorSize": 3,
       "allowedChars": "a-zA-Z0-9",
-      "description": "Variable length up to 255 characters with lllvar length indicator"
+      "description": "Variable length up to 255 characters with lllvar length indicator",
+      "formatExample": {
+        "raw": "y1",
+        "formatted": "002y1",
+        "explanation": "Length indicator '002' + raw data 'y1'"
+      }
     },
-    "validExample": "0787H7TtsfN4QwOwqTs8mZTIhFCnxHePIYbj7Tamqk59m0Tp66IZK00yWGeiVrQGykdSgL95TAagGPziA"
+    "validExampleRaw": "y1",
+    "validExample": "002y1"
   },
   "125": {
     "name": "Tag Data, Issuer",
@@ -2926,33 +2860,31 @@
     "notes": "Sent if tagged data is available in tag-length-value (TLV) format.",
     "testCases": {
       "invalid_special_chars": {
-        "value": "}>|>)@=)<;|{^$`;;|:]~=*\"-,;??$>.~%}>-,&=^%[/'$=~\"*}!&[^+#_%]%@~@^/\"%\"{.,,&|_()~>-==?\\@`$-#..\\'#@^&+-\"=]/]#&\\-(>,@<[@`;]##/<:,&-&\"./[%-\\;?|>*=-<^)=+$}|'}*|),.<:_/\"|+|_}>=:|%_|]+$+<!)<#-{(/./>)^%@;[(%`.&/-#[\\#~/<,'*``\\{?%.*\"-:?/]\\&^|&[]~|?(<#'/$%}{^?\"~:^~_@",
+        "value": "&+==]~\"@/!-._/&+@-`=-]}`\"+|(@.\\!!_\"@^(_^#*~`$#^]<{#(;:?%}|:+$\"+@-<]<[,$::@-%[:@]%>*#~;/-\\+`=;$?$%|$=@|-#&'\"*!{.@(=([?]\"!&;;/^,:$!$\\.++'}<+,|(]=+}})&&.))+(|\\,`~^-/_\")(!~;.]?\">#+]#?:~[]]>]`,}?>.$#-},`%^,:\\++_=+.;?+$)=+/>:,>#|~>:_%|_/].^>(`#>?&(@(@&.*,-\"]^'/",
         "description": "Contains invalid special characters"
       },
       "invalid_length_exceed_max": {
-        "value": "c4GJ53mB1CKmZCXr50f8gOh4wiOcFgvH1NxrhjHKAEvGEVskW4JEbp9olVdjgXog3SGUGVTJBs5eGqAgVwGWA5rrkxAGv2Azkx87yjDaGGQotWhRLX5CfhzuBRf5cSbdoWI0YJjxkBTBsXqgz2S3XDQt0SzI5f4cR3aN5BZwRQujAID40GvPOb1JGAainYJRlpj1VatzDyd42QjSPyedpsR0kvrIChqMt46TRcV0gjn4KKlNK8ZTbiuz8ahbNpF6",
-        "description": "Exceeds maximum length of 255 characters"
+        "value": "CSpZYoDC2YupJ7yvlFsJIA2UcIZJB2pErqj3V0ZUh3Y07pixeLJyMAigw780r1MXx9YgToJIEYo9TDAqbvcEBC2qMLyktZvMkFHPNN7p4le7QH5XFrfra1KbUde7Kbr77kjPcidV8MZmXETkJpqhOp2U3pQczCPiLVtDEgIoM156mQneCIlaYztq6uMLlHN1RMDqzjJSislHZZNNfXp3ugXRArgirDg3qoTwugrkivGXHR6TGQUGZItBz4Ue9Jne",
+        "description": "Raw data exceeds maximum length of 255 characters"
       },
-      "invalid_length_indicator": {
-        "value": "2564IQ111LItwDqXA5hEMN5x8OXteIlAXtX8GXSBveacdOMQ9E0B7qrG6LfWbqklnRJd3nQL1bSKT7epcawuGtdiixpcYWqHj5zISgcG9OQiU8tbfXXFDvgz6LNd0iD6UpY7CywHPItnen0zvpfEiJJhOBhud8qlZVn5BijDtaF2Okgvoyo7SVZmdd0aWzx5WyGBitoE4p9nCrXvA3iusPsdWIb8H78iJvZEJCblTO9DyMZQX6sjVFETq6pYYCJyC4",
-        "description": "Length indicator doesn't match actual data length"
-      },
-      "missing_length_indicator": {
-        "value": "4IQ111LItwDqXA5hEMN5x8OXteIlAXtX8GXSBveacdOMQ9E0B7qrG6LfWbqklnRJd3nQL1bSKT7epcawuGtdiixpcYWqHj5zISgcG9OQiU8tbfXXFDvgz6LNd0iD6UpY7CywHPItnen0zvpfEiJJhOBhud8qlZVn5BijDtaF2Okgvoyo7SVZmdd0aWzx5WyGBitoE4p9nCrXvA3iusPsdWIb8H78iJvZEJCblTO9DyMZQX6sjVFETq6pYYCJyC4",
-        "description": "Missing length indicator"
-      },
-      "zero_length": {
-        "value": "000",
-        "description": "Zero length indicator"
+      "invalid_empty": {
+        "value": "",
+        "description": "Empty raw data"
       }
     },
     "validationRules": {
       "maxLength": 255,
       "lengthIndicatorSize": 3,
       "allowedChars": "a-zA-Z0-9",
-      "description": "Variable length up to 255 characters with lllvar length indicator"
+      "description": "Variable length up to 255 characters with lllvar length indicator",
+      "formatExample": {
+        "raw": "Sgnu5eqil8FLkm9Knli32boy45KiubVGvt3lmrke4VBWMf8qLe0mlGZdWLUz4YFB0x4bUnbrtgCynPXb326Bezphxlgh0Jdwzm5JSgCpQKuTe7IH27b22HkNeRBkh4SB6tyQUhfGTNFc7dKtspe2HfVt71EJFbqiD9sjgcRxEHGj5eLwT7",
+        "formatted": "178Sgnu5eqil8FLkm9Knli32boy45KiubVGvt3lmrke4VBWMf8qLe0mlGZdWLUz4YFB0x4bUnbrtgCynPXb326Bezphxlgh0Jdwzm5JSgCpQKuTe7IH27b22HkNeRBkh4SB6tyQUhfGTNFc7dKtspe2HfVt71EJFbqiD9sjgcRxEHGj5eLwT7",
+        "explanation": "Length indicator '178' + raw data 'Sgnu5eqil8FLkm9Knli32boy45KiubVGvt3lmrke4VBWMf8qLe0mlGZdWLUz4YFB0x4bUnbrtgCynPXb326Bezphxlgh0Jdwzm5JSgCpQKuTe7IH27b22HkNeRBkh4SB6tyQUhfGTNFc7dKtspe2HfVt71EJFbqiD9sjgcRxEHGj5eLwT7'"
+      }
     },
-    "validExample": "024YBp9yKDFvsuU6fLqsSWRm9M1"
+    "validExampleRaw": "Sgnu5eqil8FLkm9Knli32boy45KiubVGvt3lmrke4VBWMf8qLe0mlGZdWLUz4YFB0x4bUnbrtgCynPXb326Bezphxlgh0Jdwzm5JSgCpQKuTe7IH27b22HkNeRBkh4SB6tyQUhfGTNFc7dKtspe2HfVt71EJFbqiD9sjgcRxEHGj5eLwT7",
+    "validExample": "178Sgnu5eqil8FLkm9Knli32boy45KiubVGvt3lmrke4VBWMf8qLe0mlGZdWLUz4YFB0x4bUnbrtgCynPXb326Bezphxlgh0Jdwzm5JSgCpQKuTe7IH27b22HkNeRBkh4SB6tyQUhfGTNFc7dKtspe2HfVt71EJFbqiD9sjgcRxEHGj5eLwT7"
   },
   "126": {
     "name": "Issuer Trace Data",
@@ -2964,33 +2896,31 @@
     "notes": "Optional for Mastercard Networks Exchange ISO acquirers.",
     "testCases": {
       "invalid_special_chars": {
-        "value": "!_.{+!|]`[?(<%<--/&'&<{^&\",,(@>&|{@+=|/-,;$\\!'\"${.~*\\[|@?`&|[\"[{)([$?$>+?,.$@]\"~^)%@.~\\%-.%%*[$!,/+>",
+        "value": "`);(:[|,$:]./?$_.*&$->._<?%=$}=>?>{:<{@?[/`{_\\`\"={\\\",,[`;\":<&}-/'%+-|%;<\\^$*:$(\\+[.@.!\"#|([#;>{?\\~]+",
         "description": "Contains invalid special characters"
       },
       "invalid_length_exceed_max": {
-        "value": "k2xWkxwP4ueAryepxFJ68WjUEhZ6i8DftAGgKdCdRvurjqO3kVwBzVJ8Z1cwEWW5hWZG7cpGexuf8AHXceqsKQf00E511pEJjCXyU",
-        "description": "Exceeds maximum length of 100 characters"
+        "value": "RIXSzPrh2Ww8OupOeZRYmgUry60uSTJjsPUisD16C4SOGeowpr1Az9V5OVB2wcToXdp325ewyW5Zm4GMWTThnQnkJ4m2WKtbaWctb",
+        "description": "Raw data exceeds maximum length of 100 characters"
       },
-      "invalid_length_indicator": {
-        "value": "101PY6zjaUNxqVFa6S6njyZB2Pr0XRFhRZifdtAYSbvqiUprv1CQcGwQcvrFTKP5WVuIPVj1iM7Q6tjgCNRiAxLqqlFshgi171K0mUd",
-        "description": "Length indicator doesn't match actual data length"
-      },
-      "missing_length_indicator": {
-        "value": "PY6zjaUNxqVFa6S6njyZB2Pr0XRFhRZifdtAYSbvqiUprv1CQcGwQcvrFTKP5WVuIPVj1iM7Q6tjgCNRiAxLqqlFshgi171K0mUd",
-        "description": "Missing length indicator"
-      },
-      "zero_length": {
-        "value": "000",
-        "description": "Zero length indicator"
+      "invalid_empty": {
+        "value": "",
+        "description": "Empty raw data"
       }
     },
     "validationRules": {
       "maxLength": 100,
       "lengthIndicatorSize": 3,
       "allowedChars": "a-zA-Z0-9",
-      "description": "Variable length up to 100 characters with lllvar length indicator"
+      "description": "Variable length up to 100 characters with lllvar length indicator",
+      "formatExample": {
+        "raw": "DKIQvHOGT0xoLMP31rllcsnUe89bMa60jNWaaxZYyGXrg7GmJmsuoA7arm8hbScHzScKCBOfqF",
+        "formatted": "074DKIQvHOGT0xoLMP31rllcsnUe89bMa60jNWaaxZYyGXrg7GmJmsuoA7arm8hbScHzScKCBOfqF",
+        "explanation": "Length indicator '074' + raw data 'DKIQvHOGT0xoLMP31rllcsnUe89bMa60jNWaaxZYyGXrg7GmJmsuoA7arm8hbScHzScKCBOfqF'"
+      }
     },
-    "validExample": "018AwLUojVrmNEoy8X1cy"
+    "validExampleRaw": "DKIQvHOGT0xoLMP31rllcsnUe89bMa60jNWaaxZYyGXrg7GmJmsuoA7arm8hbScHzScKCBOfqF",
+    "validExample": "074DKIQvHOGT0xoLMP31rllcsnUe89bMa60jNWaaxZYyGXrg7GmJmsuoA7arm8hbScHzScKCBOfqF"
   },
   "127": {
     "name": "Acquirer Trace Data",
@@ -3002,33 +2932,31 @@
     "notes": "Optional for Mastercard Networks Exchange ISO acquirers. Not passed by default to ISO issuers but can be configured.",
     "testCases": {
       "invalid_special_chars": {
-        "value": "$_;^;)+>>[+%]{>^)$>_*,@<&!}<#]%%.=-\\*_$?=<+,][{._*)$*)#\"\\:_]/-\"\\(_?[\"+[`!_*:,@;-(\\`^^/'~><&;<(:/+!?[",
+        "value": "/$<~-**|\\:{&!-&='$<:?}=-.-<;#;#(!;{`;-:#!]^^\"[=`/+'&^),?`?$,{`=-$'-*;;<+>^*\\$.@|?]?)@-['{+{&,&\\}(_%%",
         "description": "Contains invalid special characters"
       },
       "invalid_length_exceed_max": {
-        "value": "nJ1aLrLnURGFjoC6Pe6cV1sIxL1u2i3G06e1xSA0CXvUXBS0DtZOJuWe84CGwRp1liM72ynLHViZ1KDtlc1aS7NfOHwoIlVGQKtwg",
-        "description": "Exceeds maximum length of 100 characters"
+        "value": "dGjiShRJ1CvVLMwS9V5Y2zYISYXPqAwtLvzzjKgaLDTRdDFiFuqdqQIlgl0ku4pStrG0Q02kL1d8OVBjrwjc3UK7NDnz2oGYVTikc",
+        "description": "Raw data exceeds maximum length of 100 characters"
       },
-      "invalid_length_indicator": {
-        "value": "101pVhv19a38cBVg0b2uLwDXn2YIzOEfl5YkEl8tEmdXJTPfS06ULCSzfE7w0D7aqujrHkenq4DLb7SmfLLYUlsjtpmat8rj74g99Dn",
-        "description": "Length indicator doesn't match actual data length"
-      },
-      "missing_length_indicator": {
-        "value": "pVhv19a38cBVg0b2uLwDXn2YIzOEfl5YkEl8tEmdXJTPfS06ULCSzfE7w0D7aqujrHkenq4DLb7SmfLLYUlsjtpmat8rj74g99Dn",
-        "description": "Missing length indicator"
-      },
-      "zero_length": {
-        "value": "000",
-        "description": "Zero length indicator"
+      "invalid_empty": {
+        "value": "",
+        "description": "Empty raw data"
       }
     },
     "validationRules": {
       "maxLength": 100,
       "lengthIndicatorSize": 3,
       "allowedChars": "a-zA-Z0-9",
-      "description": "Variable length up to 100 characters with lllvar length indicator"
+      "description": "Variable length up to 100 characters with lllvar length indicator",
+      "formatExample": {
+        "raw": "cJw7boDejYZ4z2kIlLxSeZ9MWrwplKpMIQwPduN4M4dQTBhz9pwo",
+        "formatted": "052cJw7boDejYZ4z2kIlLxSeZ9MWrwplKpMIQwPduN4M4dQTBhz9pwo",
+        "explanation": "Length indicator '052' + raw data 'cJw7boDejYZ4z2kIlLxSeZ9MWrwplKpMIQwPduN4M4dQTBhz9pwo'"
+      }
     },
-    "validExample": "0527JgrL3IejcUiSUFAInntINN2fJkAiek6glVH2NqnBh0oaTytaPJU"
+    "validExampleRaw": "cJw7boDejYZ4z2kIlLxSeZ9MWrwplKpMIQwPduN4M4dQTBhz9pwo",
+    "validExample": "052cJw7boDejYZ4z2kIlLxSeZ9MWrwplKpMIQwPduN4M4dQTBhz9pwo"
   },
   "128": {
     "name": "Message Authenticate Code",
@@ -3040,19 +2968,19 @@
     "notes": "Required when MACing messages, at least one DE between 65-127 is present, and no DEs between 129-191 are present.",
     "testCases": {
       "invalid_type": {
-        "value": "Q15uq00QtHsR5jJAngFYX2gOCZMVyQH06StePrW6j06hhIogYaW4UicBRCR34wMx",
+        "value": "cRBb1gFM1Pcdg4n7lST2wG6KiqOSltpbuR4jfMaZJzi8c9wKVENfeOxev5G7CCje",
         "description": "Contains non-binary characters"
       },
       "invalid_binary_chars": {
-        "value": "7769893323884747697348889635472836657926356422485554295952845454",
+        "value": "5959326572488528735346947635459787376473275762248475386727934427",
         "description": "Contains non-binary digits (not 0 or 1)"
       },
       "invalid_length_short": {
-        "value": "nk2siM2SJDlY4FuLSpwN1iIKodySCb4wudbIOl577IiHfmyssV3sae0uPJfc5tr",
+        "value": "dvXCP4t0ShXb4BrPH75RC703yIzWanUngapW3yBQgwQO3ESYQ5UMbm3TWFT0K96",
         "description": "Length shorter than required 64 characters"
       },
       "invalid_length_long": {
-        "value": "rrQRuyU6P9yntBhLgpyNjVFbql3W5Xnva0QuHnFXWyI6tCnjbFIyj5The8D74CzpP",
+        "value": "4V2kN0jKzLHHKqS7Mi9h1aqx63oCmCpWBywA2qKVe2ffnZM7AraiCy1J2xNrBaEvs",
         "description": "Length longer than required 64 characters"
       }
     },
@@ -3061,6 +2989,6 @@
       "allowedChars": "0-1",
       "description": "Must be exactly 64 characters long with binary characters"
     },
-    "validExample": "1110010000111000001001101101101000101100001010100000001110000101"
+    "validExample": "1010011101100000000111011100001011101110010100110100101010100100"
   }
 }
